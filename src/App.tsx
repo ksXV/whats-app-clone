@@ -1,56 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
-
+import Header from "./components/header/header.component";
+import CustomButton from "./components/custom-button/button.component";
+import InputBox from "./components/input-box/input-box.component";
+import DisplayMessages from "./components/display-messages/display-messages.component";
+import "./App.css";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div className="chat-root">
+      <Header />
+      <div className="chat-container">
+        <div className="chat-features">
+          <div className="messages-container">
+            <DisplayMessages />
+          </div>
+          <div className="send-messages">
+            <InputBox
+              className="messages-input"
+              type="text"
+              placeholder="type a message here"
+            />
+            <CustomButton>{"Send"}</CustomButton>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

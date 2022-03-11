@@ -1,39 +1,78 @@
-.App {
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.chat-root {
+  border: 1px solid white;
+  width: 50vw;
+  height: 100vh;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
+  margin: 0 25vw;
+  background-color: #cccccc;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+.chat-container {
+  background-color: #757575;
+  width: 39vw;
+  height: 85vh;
+  padding: 0.7em;
+  display: flex;
+}
+.chat-features {
+  /* border: 1px solid purple; */
+  display: flex;
+  width: 100%;
+  height: 95%;
+  padding: 0.8em;
+  flex-direction: column;
+  justify-content: space-between;
+}
+/* https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp */
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+/* Track */
+::-webkit-scrollbar-track {
+  background: #757575;
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: white;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.messages-container {
+  overflow-y: scroll;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  width: 94%;
+  height: 85%;
+  padding: 0.8em 0.9em;
+}
+.messages-container div {
+  align-self: flex-start;
+}
+.messages-input {
+  background-color: #c4c4c4;
+  border: 0;
+  width: 77%;
+  padding: 0.6em;
+  border-bottom: 1px solid black;
+}
+.send-messages {
+  width: 100%;
+  background-color: #c4c4c4;
+  height: 2em;
+  display: flex;
+}
+.send-messages > input[type="text"]:focus {
+  outline: 0;
 }

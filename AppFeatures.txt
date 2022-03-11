@@ -1,0 +1,18 @@
+React Chat Application :
+    -We will have a sign in / sign up feature where the user can sign in with their google account with firebase;
+    -When the user will register they will be presented with 4 forms : 
+                                                                    -email;
+                                                                    -username/alias;
+                                                                    -password;
+                                                                    -confirm password ;
+    -The chat will be one globaly momentarly and will display messages from everyone who sent a message in the chat : 
+                -the user will type a message in the chat (e.g.: "Hello ,John!);
+                -the message will be remembered in a local state ;
+                -the message will be sent after to firestore with :
+                                                                    - the user that sent it;
+                                                                    - the date and hour that the message was sent;
+                                                                    - the message itself;
+                -after that the message will be displayed to the chat with : -with the user that sent it;
+                                                                             -the message itself;
+    -We will implement sessions with local storage (probably JWT);
+Layout : https://www.figma.com/file/eNEsa2AExwJXDvUcB4YRYL/background?node-id=0%3A1
