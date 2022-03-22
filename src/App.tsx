@@ -35,7 +35,8 @@ class App extends Component<IAppProps, IAppState> {
       inputMessage: event.currentTarget.value,
     });
   };
-  unsub = function noRef(): void {};
+  // this will help us to subscribe/unsubscribe from the onSnapshot method from firebase;
+  subscribeToSnapShotMessage = function noRef(): void {};
   componentDidMount() {
     getMessagesFromFirestore().then((querySnapshotRecevied) => {
       querySnapshotRecevied.forEach((message) => {
@@ -47,11 +48,11 @@ class App extends Component<IAppProps, IAppState> {
   }
   componentDidUpdate() {
     // console.log("i UPDATED");
-    this.unsub();
+    this.subscribeToSnapShotMessage();
   }
   subscribeToMessages = () => {
     const qu = query(messagesRef, orderBy("dateSent", "desc"), limit(1));
-    this.unsub = onSnapshot(qu, (snapShot) => {
+    this.subscribeToSnapShotMessage = onSnapshot(qu, (snapShot) => {
       snapShot.forEach((message) => {
         this.setState((prevState) => ({
           messages: [...prevState.messages, message],
