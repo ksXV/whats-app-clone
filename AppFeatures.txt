@@ -16,3 +16,9 @@ React Chat Application :
                                                                              -the message itself;
     -We will implement sessions with local storage (probably JWT);
 Layout : https://www.figma.com/file/eNEsa2AExwJXDvUcB4YRYL/background?node-id=0%3A1
+
+
+    -When we click the send button to send the user messages we need to fire a function that takes the message input and then we need to
+    -write either in the js file or we will convert it into a JSON file.
+    Or
+    -We could implement right now the firestore and the write in the firestore db and read from it also.

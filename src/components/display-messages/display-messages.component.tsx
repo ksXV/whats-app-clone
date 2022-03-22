@@ -1,16 +1,30 @@
 import * as React from "react";
-import { Message, MESSAGES_EXAMPLES } from "./MESSAGES-EXAMPLE";
-import "./display-messages.styles.css";
+
+import { DocumentData } from "firebase/firestore";
+
 import Messages from "../messages/messages.component";
-interface DisplayMessagesProps {}
-const DisplayMessages: React.FC<DisplayMessagesProps> = () => {
+
+import "./display-messages.styles.css";
+
+interface DisplayMessagesProps {
+  messages: Array<DocumentData>;
+}
+const DisplayMessages: React.FC<DisplayMessagesProps> = ({ messages }) => {
+  // console.log(messages);
   return (
     <div className="messages">
-      {MESSAGES_EXAMPLES.map((messageRecevied: Message) => (
-        <Messages key={messageRecevied.id} {...messageRecevied} />
-      ))}
+      {messages.map((message: DocumentData) => {
+        return (
+          <Messages
+            key={message.id}
+            user={message.data().user}
+            message={message.data().message}
+          />
+        );
+      })}
     </div>
   );
 };
 
+//upload this into a local state for now
 export default DisplayMessages;
