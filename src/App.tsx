@@ -1,98 +1,19 @@
-import Header from "./components/header/header.component";
-import CustomButton from "./components/custom-button/button.component";
-import InputBox from "./components/input-box/input-box.component";
-import DisplayMessages from "./components/display-messages/display-messages.component";
+import * as React from "react";
 
-import { Component, SyntheticEvent } from "react";
+import ChatPage from "./pages/chat-page/chat-page.compoent";
+import SignInPage from "./pages/sign-in/sign-in.component";
 
-import {
-  DocumentData,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import {
-  getMessagesFromFirestore,
-  messagesRef,
-  sendMessageDocRef,
-} from "./firebase/firebase.utils";
+import { useState } from "react";
 
-import "./App.css";
+import "./App.scss";
 
-interface IAppState {
-  inputMessage: string;
-  messages: Array<DocumentData>;
-}
 interface IAppProps {}
-class App extends Component<IAppProps, IAppState> {
-  state = {
-    inputMessage: "",
-    messages: [] as any,
-  };
-  getInputMessage = (event: SyntheticEvent<HTMLInputElement>) => {
-    this.setState({
-      inputMessage: event.currentTarget.value,
-    });
-  };
-  // this will help us to subscribe/unsubscribe from the onSnapshot method from firebase;
-  subscribeToSnapShotMessage = function noRef(): void {};
-  componentDidMount() {
-    getMessagesFromFirestore().then((querySnapshotRecevied) => {
-      querySnapshotRecevied.forEach((message) => {
-        this.setState((prevState) => ({
-          messages: [...prevState.messages, message],
-        }));
-      });
-    });
-  }
-  componentDidUpdate() {
-    // console.log("i UPDATED");
-    this.subscribeToSnapShotMessage();
-  }
-  subscribeToMessages = () => {
-    const qu = query(messagesRef, orderBy("dateSent", "desc"), limit(1));
-    this.subscribeToSnapShotMessage = onSnapshot(qu, (snapShot) => {
-      snapShot.forEach((message) => {
-        this.setState((prevState) => ({
-          messages: [...prevState.messages, message],
-        }));
-      });
-    });
-  };
 
-  render() {
-    const { inputMessage, messages } = this.state;
-    // console.log(messages);
-    return (
-      <div className="chat-root">
-        <Header />
-        <div className="chat-container">
-          <div className="chat-features">
-            <div className="messages-container">
-              <DisplayMessages messages={messages} />
-            </div>
-            <div className="send-messages">
-              <InputBox
-                className="messages-input"
-                type="text"
-                onChange={this.getInputMessage}
-                placeholder="type a message here"
-              />
-              <CustomButton
-                onClick={() => {
-                  sendMessageDocRef(inputMessage);
-                  this.subscribeToMessages();
-                }}
-              >
-                {"Send"}
-              </CustomButton>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
+const App: React.FC<IAppProps> = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isUserAuthed, setisUserAuthed] = useState<Boolean>(true);
+
+  return <>{isUserAuthed ? <SignInPage /> : <ChatPage />}</>;
+};
 
 export default App;

@@ -5,7 +5,8 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s;
-}
-.custom-button:hover {
-  background-color: #313131;
+
+  :hover {
+    background-color: #313131;
+  }
 }

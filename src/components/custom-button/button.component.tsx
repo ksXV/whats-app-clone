@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./button.styles.css";
+import "./button.styles.scss";
 interface ICustomButtonProps extends React.HTMLAttributes<HTMLElement> {}
 const CustomButton: React.FC<ICustomButtonProps> = ({
   children,

@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./messages.styles.css";
+import "./messages.styles.scss";
 
 interface MessagesSentProps {
   user: string;

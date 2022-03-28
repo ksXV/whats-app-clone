@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { DocumentData } from "firebase/firestore";
-
 import Messages from "../messages/messages.component";
 
-import "./display-messages.styles.css";
+import { DocumentData } from "firebase/firestore";
+
+import "./display-messages.styles.scss";
 
 interface DisplayMessagesProps {
   messages: Array<DocumentData>;
