@@ -12,8 +12,8 @@ const InputBox: React.FC<InputBoxProps> = ({
 }) => {
   return (
     <>
-      <input {...otherProps} />
       {label ? <label className={labelClass}>{label}</label> : null}
+      <input {...otherProps} />
     </>
   );
 };

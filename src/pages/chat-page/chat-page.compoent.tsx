@@ -1,43 +1,38 @@
+import { Component, SyntheticEvent } from "react";
+
 import Header from "../../components/header/header.component";
 import CustomButton from "../../components/custom-button/button.component";
 import InputBox from "../../components/input-box/input-box.component";
 import DisplayMessages from "../../components/display-messages/display-messages.component";
 
-import { Component, SyntheticEvent } from "react";
-
-import {
-  DocumentData,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import {
-  getMessagesFromFirestore,
-  messagesRef,
-  sendMessageDocRef,
-} from "../../firebase/firebase.utils";
+import { DocumentData, onSnapshot, orderBy, query } from "firebase/firestore";
+import { User } from "firebase/auth";
+import { messagesRef, sendMessageDocRef } from "../../firebase/firebase.utils";
 
 import { connect } from "react-redux";
 
-import { getMessagesFromFirestoreRedux } from "../../app/messages/messages.actions";
-import { AppDispatch } from "../../app/store";
+import {
+  getMessagesSnapshotFromFirestore,
+  convertSnapshotToMessagesAsync,
+} from "../../app/messages/messages.actions";
 
-import { createStructuredSelector } from "reselect";
+import { selectMessages } from "../../app/messages/messages.selector";
+
+import { AppDispatch, RootState } from "../../app/store";
 //@styles
 import "./chat-page.styles.scss";
 
-interface IAppState {
+interface IChatPageState {
   inputMessage: string;
-  messages: Array<DocumentData>;
 }
-interface IAppProps {
+interface IChatPageProps {
   dispatch: AppDispatch;
+  messages: Array<DocumentData>;
+  user?: User;
 }
-class ChatPage extends Component<IAppProps, IAppState> {
+class ChatPage extends Component<IChatPageProps, IChatPageState> {
   state = {
     inputMessage: "",
-    messages: [] as Array<DocumentData>,
   };
   getInputMessage = (event: SyntheticEvent<HTMLInputElement>): void => {
     this.setState({
@@ -45,41 +40,26 @@ class ChatPage extends Component<IAppProps, IAppState> {
     });
   };
   // this will help us to subscribe/unsubscribe from the onSnapshot method from firebase;
-  subscribeToSnapShotMessage = function noRef(): void {};
+  // subscribeToSnapShotMessage = function noRef(): void {};
   componentDidMount(): void {
-    // const { dispatch } = this.props;
-    getMessagesFromFirestore().then((querySnapshotRecevied) => {
-      querySnapshotRecevied.forEach((message) => {
-        this.setState((prevState) => ({
-          messages: [...prevState.messages, message],
-        }));
-        // dispatch(getMessagesFromFirestoreRedux(message));
-      });
+    const { dispatch } = this.props;
+    const q = query(messagesRef, orderBy("dateSent", "asc"));
+    onSnapshot(q, (snapshot) => {
+      dispatch(getMessagesSnapshotFromFirestore(snapshot));
+      dispatch(convertSnapshotToMessagesAsync());
     });
   }
-  componentDidUpdate(): void {
-    this.subscribeToSnapShotMessage();
-  }
-
-  subscribeToMessages = (): void => {
-    const qu = query(messagesRef, orderBy("dateSent", "desc"), limit(1));
-    this.subscribeToSnapShotMessage = onSnapshot(qu, (snapShot) => {
-      snapShot.forEach((message) => {
-        this.setState((prevState) => ({
-          messages: [...prevState.messages, message],
-        }));
-      });
-    });
-  };
-
   render() {
-    const { inputMessage, messages } = this.state;
+    const { inputMessage } = this.state;
+    const { user, messages } = this.props;
+    // console.log(messagesSnapshot);
     return (
-      <div className="chat-root">
-        <Header />
+      <>
+        <Header displayName={user!.displayName} />
         <button
           onClick={() => {
-            console.log(this.state.messages);
+            console.log(this.props);
+            // console.log(selectMessages);
           }}
         >
           Test
@@ -98,8 +78,8 @@ class ChatPage extends Component<IAppProps, IAppState> {
               />
               <CustomButton
                 onClick={() => {
-                  sendMessageDocRef(inputMessage);
-                  this.subscribeToMessages();
+                  sendMessageDocRef(inputMessage, user!.displayName!);
+                  // this.subscribeToMessages();
                 }}
               >
                 {"Send"}
@@ -107,12 +87,12 @@ class ChatPage extends Component<IAppProps, IAppState> {
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
-const mapStateToProps = createStructuredSelector({
-  curentState: getMessagesFromFirestoreRedux,
+const mapStateToProps = (state: RootState) => ({
+  messages: selectMessages(state),
 });
 
 export default connect(mapStateToProps)(ChatPage);

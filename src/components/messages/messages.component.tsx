@@ -1,12 +1,12 @@
 import * as React from "react";
 import "./messages.styles.scss";
 
-interface MessagesSentProps {
+interface MessagesProps {
   user: string;
   message: string;
 }
 
-const MessagesSent: React.FC<MessagesSentProps> = ({ user, message }) => {
+const Messages: React.FC<MessagesProps> = ({ user, message }) => {
   return (
     <div className="messages-recevied">
       <div className="user">
@@ -19,4 +19,4 @@ const MessagesSent: React.FC<MessagesSentProps> = ({ user, message }) => {
   );
 };
 
-export default MessagesSent;
+export default Messages;

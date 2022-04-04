@@ -8,6 +8,7 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,20 +25,15 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const messagesRef = collection(db, "messages");
+export const auth = getAuth();
+export const googleAuth = new GoogleAuthProvider();
 
-export async function getMessagesFromFirestore() {
-  //This will get  the messages
-  const q = query(messagesRef, orderBy("dateSent", "asc"));
-  const querySnapshot = await getDocs(q);
-  return querySnapshot;
-}
-
-export async function sendMessageDocRef(message: string) {
+export async function sendMessageDocRef(message: string, user: string) {
   //This will send messages to the firestore database
   try {
     if (message && message.length !== 0) {
       const docRef = await addDoc(messagesRef, {
-        user: "John Smith",
+        user: user,
         message: message,
         dateSent: new Date(),
       });

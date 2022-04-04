@@ -7,10 +7,9 @@ import { DocumentData } from "firebase/firestore";
 import "./display-messages.styles.scss";
 
 interface DisplayMessagesProps {
-  messages: Array<DocumentData>;
+  messages: Array<any>;
 }
 const DisplayMessages: React.FC<DisplayMessagesProps> = ({ messages }) => {
-  // console.log(messages);
   return (
     <div className="messages">
       {messages.map((message: DocumentData) => {
