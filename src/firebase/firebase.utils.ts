@@ -1,13 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {
-  addDoc,
-  getDocs,
-  collection,
-  getFirestore,
-  query,
-  orderBy,
-} from "firebase/firestore";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -28,7 +21,10 @@ export const messagesRef = collection(db, "messages");
 export const auth = getAuth();
 export const googleAuth = new GoogleAuthProvider();
 
-export async function sendMessageDocRef(message: string, user: string) {
+export async function sendMessageDocRef(
+  message: string,
+  user: string
+): Promise<"Success" | undefined> {
   //This will send messages to the firestore database
   try {
     if (message && message.length !== 0) {

@@ -14,9 +14,9 @@ import { connect } from "react-redux";
 import {
   getMessagesSnapshotFromFirestore,
   convertSnapshotToMessagesAsync,
-} from "../../app/messages/messages.actions";
+} from "../../features/messages/messages.actions";
 
-import { selectMessages } from "../../app/messages/messages.selector";
+import { selectMessages } from "../../features/messages/messages.selector";
 
 import { AppDispatch, RootState } from "../../app/store";
 //@styles
@@ -27,8 +27,9 @@ interface IChatPageState {
 }
 interface IChatPageProps {
   dispatch: AppDispatch;
+  signUserOut: () => void;
   messages: Array<DocumentData>;
-  user?: User;
+  user: User | null;
 }
 class ChatPage extends Component<IChatPageProps, IChatPageState> {
   state = {
@@ -51,18 +52,19 @@ class ChatPage extends Component<IChatPageProps, IChatPageState> {
   }
   render() {
     const { inputMessage } = this.state;
-    const { user, messages } = this.props;
+    const { user, messages, signUserOut } = this.props;
     // console.log(messagesSnapshot);
     return (
       <>
         <Header displayName={user!.displayName} />
         <button
           onClick={() => {
-            console.log(this.props);
+            signUserOut();
+            // console.log(this.props);
             // console.log(selectMessages);
           }}
         >
-          Test
+          Sign out
         </button>
         <div className="chat-container">
           <div className="chat-features">
@@ -71,6 +73,7 @@ class ChatPage extends Component<IChatPageProps, IChatPageState> {
             </div>
             <div className="send-messages">
               <InputBox
+                required={false}
                 className="messages-input"
                 type="text"
                 onChange={this.getInputMessage}

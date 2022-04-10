@@ -1,5 +1,5 @@
 import { MessagesActionTypes } from "./messages.types";
-import { AppDispatch, RootState } from "../store";
+import { AppDispatch, RootState } from "../../app/store";
 import { DocumentData, QuerySnapshot } from "firebase/firestore";
 
 export const getMessagesSnapshotFromFirestore = (messagesSnapshot: any) => ({
@@ -30,7 +30,7 @@ export const convertSnapshotToMessagesAsync = () => {
           messagesSnapshot.docs.map((message) => message)
         )
       );
-    } catch (err) {
+    } catch (err: unknown) {
       dispatch(convertSnapshotToMessagesFailure(err));
     }
   };

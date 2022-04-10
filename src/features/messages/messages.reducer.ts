@@ -1,15 +1,20 @@
+import { DocumentData, QuerySnapshot } from "firebase/firestore";
 import { MessagesActionTypes } from "./messages.types";
 
 interface Action_Interface {
-  type: string;
-  payload: any;
+  readonly type: string;
+  readonly payload:
+    | QuerySnapshot<DocumentData>
+    | Array<DocumentData>
+    | unknown
+    | any;
 }
 
 export interface INTIAL_STATE_Interface {
   messagesSnapshot: any;
   messages: Array<any>;
   areMessagesFetching: boolean;
-  error?: null;
+  error: null;
 }
 
 const INTIAL_STATE: INTIAL_STATE_Interface = {
