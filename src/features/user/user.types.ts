@@ -1,0 +1,7 @@
+export const UserTypes: {
+  GET_USER_FROM_FIRESTORE: string;
+  SIGN_USER_OUT: string;
+} = {
+  GET_USER_FROM_FIRESTORE: "GET_USER_FROM_FIRESTORE",
+  SIGN_USER_OUT: "SIGN_USER_OUT",
+};

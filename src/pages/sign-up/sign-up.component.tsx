@@ -17,6 +17,7 @@ interface SignUpPageState {
   email: string;
   password: string;
   username: string;
+  checkPassword: string;
 }
 
 class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
@@ -24,12 +25,15 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
     email: "",
     password: "",
     username: "",
+    checkPassword: "",
   };
 
   createUser = () => {
-    const { email, password, username } = this.state;
+    const { email, password, username, checkPassword } = this.state;
     const { signUserUp } = this.props;
-    if (email && password && username) {
+    if (checkPassword !== password) {
+      alert("Your passwords don't match.");
+    } else if (email && password && username) {
       createUserWithEmailAndPassword(auth, email, password).then(
         ({ user }) => {
           updateProfile(user, {
@@ -50,6 +54,10 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
     if (event.currentTarget.type === "text") {
       this.setState({
         username: event.currentTarget.value,
+      });
+    } else if (event.currentTarget.id === "check-password") {
+      this.setState({
+        checkPassword: event.currentTarget.value,
       });
     } else {
       this.setState({
@@ -85,6 +93,16 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
           className="input-box"
           placeholder="enter your password here"
           label="Password"
+          labelClass="label-input"
+          onChange={this.getInputValue}
+        />
+        <InputBox
+          required={true}
+          id="check-password"
+          type="password"
+          className="input-box"
+          placeholder="confirm your password here"
+          label="Confirm password"
           labelClass="label-input"
           onChange={this.getInputValue}
         />

@@ -11,14 +11,12 @@ interface Action_Interface {
 }
 
 export interface INTIAL_STATE_Interface {
-  messagesSnapshot: any;
   messages: Array<any>;
   areMessagesFetching: boolean;
   error: null;
 }
 
 const INTIAL_STATE: INTIAL_STATE_Interface = {
-  messagesSnapshot: {},
   messages: [],
   areMessagesFetching: false,
   error: null,
@@ -26,11 +24,6 @@ const INTIAL_STATE: INTIAL_STATE_Interface = {
 
 const messagesReducer = (state = INTIAL_STATE, action: Action_Interface) => {
   switch (action.type) {
-    case MessagesActionTypes.GET_MESSAGES_SNAPSHOT_FROM_FIRESTORE:
-      return {
-        ...state,
-        messagesSnapshot: action.payload,
-      };
     case MessagesActionTypes.COVERT_SNAPSHOT_TO_MESSAGES_START:
       return {
         ...state,

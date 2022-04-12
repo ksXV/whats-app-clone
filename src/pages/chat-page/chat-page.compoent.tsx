@@ -11,10 +11,7 @@ import { messagesRef, sendMessageDocRef } from "../../firebase/firebase.utils";
 
 import { connect } from "react-redux";
 
-import {
-  getMessagesSnapshotFromFirestore,
-  convertSnapshotToMessagesAsync,
-} from "../../features/messages/messages.actions";
+import { convertSnapshotToMessagesAsync } from "../../features/messages/messages.actions";
 
 import { selectMessages } from "../../features/messages/messages.selector";
 
@@ -40,58 +37,56 @@ class ChatPage extends Component<IChatPageProps, IChatPageState> {
       inputMessage: event.currentTarget.value,
     });
   };
-  // this will help us to subscribe/unsubscribe from the onSnapshot method from firebase;
-  // subscribeToSnapShotMessage = function noRef(): void {};
   componentDidMount(): void {
     const { dispatch } = this.props;
     const q = query(messagesRef, orderBy("dateSent", "asc"));
     onSnapshot(q, (snapshot) => {
-      dispatch(getMessagesSnapshotFromFirestore(snapshot));
-      dispatch(convertSnapshotToMessagesAsync());
+      dispatch(convertSnapshotToMessagesAsync(snapshot));
     });
   }
   render() {
     const { inputMessage } = this.state;
     const { user, messages, signUserOut } = this.props;
-    // console.log(messagesSnapshot);
-    return (
-      <>
-        <Header displayName={user!.displayName} />
-        <button
-          onClick={() => {
-            signUserOut();
-            // console.log(this.props);
-            // console.log(selectMessages);
-          }}
-        >
-          Sign out
-        </button>
-        <div className="chat-container">
-          <div className="chat-features">
-            <div className="messages-container">
-              <DisplayMessages messages={messages} />
-            </div>
-            <div className="send-messages">
-              <InputBox
-                required={false}
-                className="messages-input"
-                type="text"
-                onChange={this.getInputMessage}
-                placeholder="type a message here"
-              />
-              <CustomButton
-                onClick={() => {
-                  sendMessageDocRef(inputMessage, user!.displayName!);
-                  // this.subscribeToMessages();
-                }}
-              >
-                {"Send"}
-              </CustomButton>
+    if (user !== null) {
+      return (
+        <>
+          <Header displayName={user.displayName} />
+          <button
+            onClick={() => {
+              signUserOut();
+            }}
+          >
+            Sign out
+          </button>
+          <div className="chat-container">
+            <div className="chat-features">
+              <div className="messages-container">
+                <DisplayMessages messages={messages} />
+              </div>
+              <div className="send-messages">
+                <InputBox
+                  required={false}
+                  className="messages-input"
+                  type="text"
+                  onChange={this.getInputMessage}
+                  placeholder="type a message here"
+                />
+                <CustomButton
+                  onClick={() => {
+                    sendMessageDocRef(inputMessage, user!.displayName!);
+                    // this.subscribeToMessages();
+                  }}
+                >
+                  {"Send"}
+                </CustomButton>
+              </div>
             </div>
           </div>
-        </div>
-      </>
-    );
+        </>
+      );
+    } else {
+      return null;
+    }
   }
 }
 const mapStateToProps = (state: RootState) => ({
