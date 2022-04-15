@@ -12,10 +12,9 @@ import { messagesRef, sendMessageDocRef } from "../../firebase/firebase.utils";
 import { connect } from "react-redux";
 
 import { convertSnapshotToMessagesAsync } from "../../features/messages/messages.actions";
-
 import { selectMessages } from "../../features/messages/messages.selector";
-
 import { AppDispatch, RootState } from "../../app/store";
+
 //@styles
 import "./chat-page.styles.scss";
 
@@ -40,9 +39,15 @@ class ChatPage extends Component<IChatPageProps, IChatPageState> {
   componentDidMount(): void {
     const { dispatch } = this.props;
     const q = query(messagesRef, orderBy("dateSent", "asc"));
-    onSnapshot(q, (snapshot) => {
-      dispatch(convertSnapshotToMessagesAsync(snapshot));
-    });
+    onSnapshot(
+      q,
+      (snapshot) => {
+        dispatch(convertSnapshotToMessagesAsync(snapshot));
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
   render() {
     const { inputMessage } = this.state;
@@ -56,7 +61,7 @@ class ChatPage extends Component<IChatPageProps, IChatPageState> {
               signUserOut();
             }}
           >
-            Sign out
+            {"Sign out"}
           </button>
           <div className="chat-container">
             <div className="chat-features">
@@ -74,7 +79,6 @@ class ChatPage extends Component<IChatPageProps, IChatPageState> {
                 <CustomButton
                   onClick={() => {
                     sendMessageDocRef(inputMessage, user!.displayName!);
-                    // this.subscribeToMessages();
                   }}
                 >
                   {"Send"}

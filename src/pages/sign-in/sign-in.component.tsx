@@ -1,4 +1,8 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  browserSessionPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import * as React from "react";
 import { Component } from "react";
 
@@ -31,11 +35,13 @@ export default class SignInPage extends Component<
     const { email, password } = this.state;
     const { signUserIn } = this.props;
     if (email && password) {
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          signUserIn();
-        })
-        .catch((err) => console.log(err));
+      setPersistence(auth, browserSessionPersistence).then(() => {
+        signInWithEmailAndPassword(auth, email, password)
+          .then(() => {
+            signUserIn();
+          })
+          .catch((err) => console.log(err));
+      });
     }
   };
   getInputValue = (event: React.SyntheticEvent<HTMLInputElement>) => {

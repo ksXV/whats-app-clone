@@ -4,7 +4,12 @@ import InputBox from "../../components/input-box/input-box.component";
 import CustomButton from "../../components/custom-button/button.component";
 
 import { auth } from "../../firebase/firebase.utils";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  browserSessionPersistence,
+  createUserWithEmailAndPassword,
+  setPersistence,
+  updateProfile,
+} from "firebase/auth";
 
 import "./sign-up.styles.scss";
 
@@ -38,8 +43,11 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
         ({ user }) => {
           updateProfile(user, {
             displayName: username,
+          }).then(() => {
+            setPersistence(auth, browserSessionPersistence).then(() => {
+              signUserUp();
+            });
           });
-          signUserUp();
         },
         (err) => {
           console.log(err);

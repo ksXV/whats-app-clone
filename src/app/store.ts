@@ -3,6 +3,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import rootReducer from "./rootreducer";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
+
 const middlewares: Array<never | Redux.Middleware> = [thunk];
 
 if (process.env.NODE_ENV === "development") {
