@@ -1,7 +1,13 @@
-import { UserTypes } from "./user.types";
 import { User } from "firebase/auth";
 
-export const getUserFromFirestore = (userData: User | null) => ({
-  type: UserTypes.GET_USER_FROM_FIRESTORE,
+import { UserActionTypes } from "./user.types";
+
+export type getUserFromFirestoreType = (P: User | null) => {
+  type: string;
+  payload: User | null;
+};
+
+export const getUserFromFirestore: getUserFromFirestoreType = (userData) => ({
+  type: UserActionTypes.GET_USER_FROM_FIRESTORE,
   payload: userData,
 });

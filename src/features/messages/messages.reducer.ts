@@ -1,28 +1,14 @@
-import { DocumentData, QuerySnapshot } from "firebase/firestore";
+import { AnyAction } from "@reduxjs/toolkit";
+import { MessagesIntialStateInterface } from "../interfaces";
 import { MessagesActionTypes } from "./messages.types";
 
-interface Action_Interface {
-  readonly type: string;
-  readonly payload:
-    | QuerySnapshot<DocumentData>
-    | Array<DocumentData>
-    | unknown
-    | any;
-}
-
-export interface INTIAL_STATE_Interface {
-  messages: Array<any>;
-  areMessagesFetching: boolean;
-  error: null;
-}
-
-const INTIAL_STATE: INTIAL_STATE_Interface = {
+const INTIAL_STATE: MessagesIntialStateInterface = {
   messages: [],
   areMessagesFetching: false,
   error: null,
 };
 
-const messagesReducer = (state = INTIAL_STATE, action: Action_Interface) => {
+function messagesReducer(state = INTIAL_STATE, action: AnyAction) {
   switch (action.type) {
     case MessagesActionTypes.COVERT_SNAPSHOT_TO_MESSAGES_START:
       return {
@@ -44,6 +30,6 @@ const messagesReducer = (state = INTIAL_STATE, action: Action_Interface) => {
     default:
       return state;
   }
-};
+}
 
 export default messagesReducer;

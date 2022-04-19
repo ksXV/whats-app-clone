@@ -1,22 +1,24 @@
-import { User } from "firebase/auth";
-import { UserTypes } from "./user.types";
+import { UserActionTypes } from "./user.types";
 
-export interface UserIS {
-  currentUser: null | User;
-}
+import { ActionInterface, UserStateInterface } from "../interfaces";
 
-const INTIAL_STATE = {
+import { User } from "@firebase/auth";
+
+const INTIAL_STATE: UserStateInterface = {
   currentUser: null,
 };
 
-function userReducer(state: any = INTIAL_STATE, action: any) {
+function userReducer(
+  state = INTIAL_STATE,
+  action: ActionInterface<string, User | null>
+) {
   switch (action.type) {
-    case UserTypes.GET_USER_FROM_FIRESTORE:
+    case UserActionTypes.GET_USER_FROM_FIRESTORE:
       return {
         ...state,
         currentUser: action.payload,
       };
-    case UserTypes.SIGN_USER_OUT:
+    case UserActionTypes.SIGN_USER_OUT:
       return {
         ...state,
         currentUser: null,

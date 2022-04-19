@@ -28,8 +28,8 @@ interface IAppProps {
 }
 
 const App: React.FC<IAppProps> = ({ userData }) => {
-  const [isUserAuthed, setisUserAuthed] = useState<Boolean>(false);
   const dispatch = useAppDispatch();
+  const [isUserAuthed, setisUserAuthed] = useState<Boolean>(false);
   const [currentPage, setCurrentPage] = useState<string>("sign-in");
 
   const signInWithGoogle = (): void => {
@@ -43,7 +43,7 @@ const App: React.FC<IAppProps> = ({ userData }) => {
     });
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     if (userData === null) {
       const sessionStorageKeys = Object.keys(window.sessionStorage);
       if (sessionStorageKeys.length !== 0) {
@@ -55,7 +55,8 @@ const App: React.FC<IAppProps> = ({ userData }) => {
         setisUserAuthed(true);
       }
     }
-  }, [isUserAuthed, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData]);
 
   return (
     <div className="display-root">

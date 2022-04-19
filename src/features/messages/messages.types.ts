@@ -1,9 +1,6 @@
-interface IMessagesActionTypes {
-  COVERT_SNAPSHOT_TO_MESSAGES_START: string;
-  COVERT_SNAPSHOT_TO_MESSAGES_SUCCESS: string;
-  COVERT_SNAPSHOT_TO_MESSAGES_FAILURE: string;
-}
-export const MessagesActionTypes: IMessagesActionTypes = {
+import { MessagesActionTypesInterface } from "../interfaces";
+
+export const MessagesActionTypes: MessagesActionTypesInterface = {
   COVERT_SNAPSHOT_TO_MESSAGES_START: "COVERT_SNAPSHOT_TO_MESSAGES_START",
   COVERT_SNAPSHOT_TO_MESSAGES_SUCCESS: "COVERT_SNAPSHOT_TO_MESSAGES_SUCCESS",
   COVERT_SNAPSHOT_TO_MESSAGES_FAILURE: "COVERT_SNAPSHOT_TO_MESSAGES_FAILURE",
