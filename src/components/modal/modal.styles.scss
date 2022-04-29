@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.modal__options {
+  @apply w-[100%] px-4 text-xl py-3 hover:bg-slate-800 transition-all duration-100 cursor-pointer;
+}

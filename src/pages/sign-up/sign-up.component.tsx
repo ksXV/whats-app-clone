@@ -11,8 +11,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-import "./sign-up.styles.scss";
-
 interface SignUpPageProps {
   changeCurrentPage: () => void;
   signUserUp: () => void;
@@ -76,14 +74,14 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
   render() {
     const { changeCurrentPage } = this.props;
     return (
-      <div className="sign-up-root">
+      <div className="flex h-screen flex-col justify-center w-96">
         <InputBox
           required={true}
           type="text"
           className="input-box"
           placeholder="enter your username here"
-          label="Username"
-          labelClass="label-input"
+          label="Username:"
+          labelClass="text-left"
           onChange={this.getInputValue}
         />
         <InputBox
@@ -91,8 +89,8 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
           type="email"
           className="input-box"
           placeholder="enter your email here"
-          label="Email"
-          labelClass="label-input"
+          label="Email:"
+          labelClass="text-left"
           onChange={this.getInputValue}
         />
         <InputBox
@@ -100,8 +98,8 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
           type="password"
           className="input-box"
           placeholder="enter your password here"
-          label="Password"
-          labelClass="label-input"
+          label="Password:"
+          labelClass="text-left"
           onChange={this.getInputValue}
         />
         <InputBox
@@ -110,16 +108,22 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
           type="password"
           className="input-box"
           placeholder="confirm your password here"
-          label="Confirm password"
-          labelClass="label-input"
+          label="Confirm password:"
+          labelClass="text-left"
           onChange={this.getInputValue}
         />
-        <div className="button-container">
-          <CustomButton className="custom-button" onClick={this.createUser}>
+        <div className="flex flex-col justify-between h-32 pt-5 w-48 place-self-center items-center">
+          <CustomButton
+            className="custom-button w-40"
+            onClick={this.createUser}
+          >
             Sign Up
           </CustomButton>
 
-          <CustomButton className="custom-button" onClick={changeCurrentPage}>
+          <CustomButton
+            className="custom-button w-60"
+            onClick={changeCurrentPage}
+          >
             Already have an account ?
           </CustomButton>
         </div>

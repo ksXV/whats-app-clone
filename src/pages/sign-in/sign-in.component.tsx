@@ -1,16 +1,16 @@
-import {
-  browserSessionPersistence,
-  setPersistence,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import * as React from "react";
 import { Component } from "react";
 
 import CustomButton from "../../components/custom-button/button.component";
 import InputBox from "../../components/input-box/input-box.component";
+
 import { auth } from "../../firebase/firebase.utils";
 
-import "./sign-in.styles.scss";
+import {
+  browserSessionPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 interface SignInPageState {
   email: string;
@@ -53,13 +53,13 @@ export default class SignInPage extends Component<
   render() {
     const { signInWithGoogle, changeCurrentPage } = this.props;
     return (
-      <div className="sign-in-root">
+      <div className="flex h-screen flex-col justify-center w-96">
         <InputBox
           required={true}
           label="Email:"
           type="email"
           className="input-box"
-          labelClass="label-input"
+          labelClass="text-left"
           placeholder="type your email here"
           onChange={this.getInputValue}
         />
@@ -68,27 +68,21 @@ export default class SignInPage extends Component<
           label="Password:"
           type="password"
           className="input-box"
-          labelClass="label-input"
+          labelClass="text-left"
           onChange={this.getInputValue}
           placeholder="type your password here"
         />
-        <div className="button-container">
-          <CustomButton
-            className="custom-button sign-in-button"
-            onClick={this.signIn}
-          >
+        <div className="flex flex-col justify-between h-44 pt-5 w-48 place-self-center">
+          <CustomButton className="custom-button" onClick={this.signIn}>
             Sign In
           </CustomButton>
           <CustomButton
             onClick={signInWithGoogle}
-            className="custom-button google-button"
+            className="google-button custom-button"
           >
             Sign In with Google
           </CustomButton>
-          <CustomButton
-            onClick={changeCurrentPage}
-            className="custom-button sign-up-button"
-          >
+          <CustomButton onClick={changeCurrentPage} className="custom-button">
             Sign Up
           </CustomButton>
         </div>

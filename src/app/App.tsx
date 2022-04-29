@@ -56,40 +56,40 @@ const App: React.FC<IAppProps> = ({ userData }) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData]);
+  }, []);
 
-  return (
-    <div className="display-root">
-      {isUserAuthed ? (
-        <ChatPage
-          signUserOut={() => {
-            setisUserAuthed(false);
-            setCurrentPage("sign-in");
-            signOut(auth);
-            dispatch(getUserFromFirestore(null));
-          }}
-          user={userData}
-        />
-      ) : currentPage === "sign-in" ? (
-        <SignInPage
-          changeCurrentPage={() => setCurrentPage("sign-up")}
-          signUserIn={() => {
-            dispatch(getUserFromFirestore(auth.currentUser));
-            setisUserAuthed(true);
-          }}
-          signInWithGoogle={signInWithGoogle}
-        />
-      ) : currentPage === "sign-up" ? (
-        <SignUpPage
-          changeCurrentPage={() => setCurrentPage("sign-in")}
-          signUserUp={() => {
-            dispatch(getUserFromFirestore(auth.currentUser));
-            setisUserAuthed(true);
-          }}
-        />
-      ) : null}
+  return isUserAuthed ? (
+    <ChatPage
+      signUserOut={() => {
+        setisUserAuthed(false);
+        setCurrentPage("sign-in");
+        signOut(auth);
+        dispatch(getUserFromFirestore(null));
+      }}
+      user={userData}
+    />
+  ) : currentPage === "sign-in" ? (
+    <div className="display-root bg-secondary-color">
+      <SignInPage
+        changeCurrentPage={() => setCurrentPage("sign-up")}
+        signUserIn={() => {
+          dispatch(getUserFromFirestore(auth.currentUser));
+          setisUserAuthed(true);
+        }}
+        signInWithGoogle={signInWithGoogle}
+      />
     </div>
-  );
+  ) : currentPage === "sign-up" ? (
+    <div className="display-root bg-secondary-color">
+      <SignUpPage
+        changeCurrentPage={() => setCurrentPage("sign-in")}
+        signUserUp={() => {
+          dispatch(getUserFromFirestore(auth.currentUser));
+          setisUserAuthed(true);
+        }}
+      />
+    </div>
+  ) : null;
 };
 
 const mapStateToProps = (state: RootState) => ({
