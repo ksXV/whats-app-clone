@@ -15,10 +15,13 @@ import {
 } from "firebase/auth";
 
 import { connect } from "react-redux";
+
+import { useAppDispatch } from "./hooks";
+
 import { AppDispatch, RootState } from "./store";
+
 import { selectUser } from "../features/user/user.selector";
 import { getUserFromFirestore } from "../features/user/user.actions";
-import { useAppDispatch } from "./hooks";
 
 import "./App.scss";
 
@@ -66,7 +69,6 @@ const App: React.FC<IAppProps> = ({ userData }) => {
         signOut(auth);
         dispatch(getUserFromFirestore(null));
       }}
-      user={userData}
     />
   ) : currentPage === "sign-in" ? (
     <div className="display-root bg-secondary-color">

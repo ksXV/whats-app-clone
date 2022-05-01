@@ -3,5 +3,20 @@
 @tailwind utilities;
 
 .modal__options {
-  @apply w-[100%] px-4 text-xl py-3 hover:bg-slate-800 transition-all duration-100 cursor-pointer;
+  @apply w-[100%] px-4 text-[1.1rem] font-normal py-3 hover:bg-[#131B21] transition-all duration-100 cursor-pointer;
+}
+
+.modal {
+  animation: appear-from-tr-corner 0.2s linear;
+}
+
+@keyframes appear-from-tr-corner {
+  from {
+    transform: scale(0);
+    transform-origin: top right;
+  }
+  to {
+    transform: scale(1);
+    transform-origin: top right;
+  }
 }

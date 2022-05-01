@@ -5,9 +5,6 @@
 body {
   @apply font-sans bg-main-color text-white overflow-hidden;
 }
-input::placeholder {
-  padding-left: 5px;
-}
 .display-root {
   width: 50vw;
   height: 100vh;

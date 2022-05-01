@@ -1,7 +1,14 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+} from "firebase/firestore";
+import { getAuth, GoogleAuthProvider, User } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,30 +24,28 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-export const messagesRef = collection(db, "messages");
+export const usersRef = collection(db, "users");
 export const auth = getAuth();
 export const googleAuth = new GoogleAuthProvider();
 
-export async function sendMessageDocRef(
-  message: string,
-  user: string
-): Promise<"Success" | undefined> {
-  //This will send messages to the firestore database
+export async function storeUserinFireStore(userData: User): Promise<void> {
   try {
-    if (message && message.length !== 0) {
-      const docRef = await addDoc(messagesRef, {
-        user: user,
-        message: message,
-        dateSent: new Date(),
-      });
-      if (docRef && docRef.id) {
-        return "Success";
-      }
+    const { displayName, photoURL, email, uid } = userData;
+    const userDocRef = doc(db, "users", uid);
+    const userDocSnap = await getDoc(userDocRef);
+    if (userDocSnap.exists() === true) {
+      console.log("does exist");
     } else {
-      throw Error;
+      await setDoc(userDocRef, {
+        displayName,
+        photoURL,
+        email,
+        joined: new Date(),
+      }).catch((err) => {
+        console.error(err);
+      });
     }
-  } catch (err) {
-    // eslint-disable-next-line no-throw-literal
-    throw "Error sending message " + err;
+  } catch {
+    console.log("Something went wrong here : storeUserinFireStore");
   }
 }

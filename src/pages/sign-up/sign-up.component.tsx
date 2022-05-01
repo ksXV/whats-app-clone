@@ -36,11 +36,17 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
     const { signUserUp } = this.props;
     if (checkPassword !== password) {
       alert("Your passwords don't match.");
-    } else if (email && password && username) {
+    } else if (
+      email.length !== 0 &&
+      password.length !== 0 &&
+      username.length !== 0
+    ) {
       createUserWithEmailAndPassword(auth, email, password).then(
         ({ user }) => {
           updateProfile(user, {
             displayName: username,
+            photoURL:
+              "https://drive.google.com/file/d/1onXpQ6BOvLFeoMZvfy81nBeKZy6rrM_1/view",
           }).then(() => {
             setPersistence(auth, browserSessionPersistence).then(() => {
               signUserUp();
