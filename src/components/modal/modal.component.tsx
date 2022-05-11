@@ -18,8 +18,8 @@ const Modal: React.FC<ModalProps> = ({ logUserOut, isModalHidden }) => {
         <h3 className="modal__options unselectable-text" onClick={logUserOut}>
           Disconnect
         </h3>
-        <h3 className="modal__options unselectable-text">Disconnect</h3>
-        <h3 className="modal__options unselectable-text">Disconnect</h3>
+        <h3 className="modal__options unselectable-text">*WIP*</h3>
+        <h3 className="modal__options unselectable-text">*WIP*</h3>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 import * as React from "react";
+
 import "./input-box.styles.scss";
+
 interface InputBoxProps extends React.HTMLAttributes<HTMLElement> {
   label?: string;
   type: string;

@@ -1,28 +1,28 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import * as React from "react";
 
+import { RiGroupLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { AiOutlinePlus } from "react-icons/ai";
+import { BiMessageAdd } from "react-icons/bi";
 
 import { User } from "firebase/auth";
 
-import "./header.styles.scss";
-
-interface HeaderProps {
+interface LeftMenuHeaderProps {
   user: User | null;
   changeModalState: () => void;
   toProfileDrawer: () => void;
   toAddConvoDrawer: () => void;
+  toFriendsList: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({
+const LeftMenuHeader: React.FC<LeftMenuHeaderProps> = ({
   user,
   changeModalState,
   toProfileDrawer,
   toAddConvoDrawer,
+  toFriendsList,
 }) => {
   return (
-    <div className="flex items-center justify-between w-[100%] py-[0.4rem] px-3 bg-[#1A2329]">
+    <div className="flex items-center justify-between w-[100%] py-3 px-3 bg-[#1A2329]">
       <div
         className="w-10 h-10 items-center justify-center flex"
         onClick={toProfileDrawer}
@@ -33,16 +33,21 @@ const Header: React.FC<HeaderProps> = ({
           alt="profile-picture"
         />
       </div>
-      <div className="flex flex-row w-24 items-center justify-between">
+      <div className="flex flex-row w-32 items-center justify-between">
         {/*Plus will add a friend and will be worked on later on*/}
-        <AiOutlinePlus
-          size={"28"}
+        <RiGroupLine
+          size={"26"}
+          onClick={toFriendsList}
+          className="cursor-pointer mx-1 unselectable-text"
+        />
+        <BiMessageAdd
+          size={"26"}
           onClick={toAddConvoDrawer}
-          className="cursor-pointer unselectable-text"
+          className="cursor-pointer mx-1 unselectable-text"
         />
         <BsThreeDotsVertical
-          size={"28"}
-          className="cursor-pointer unselectable-text"
+          size={"26"}
+          className="cursor-pointer mx-1 unselectable-text"
           onClick={changeModalState}
         />
       </div>
@@ -50,4 +55,4 @@ const Header: React.FC<HeaderProps> = ({
   );
 };
 
-export default Header;
+export default LeftMenuHeader;

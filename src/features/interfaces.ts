@@ -1,17 +1,26 @@
 import { User } from "firebase/auth";
 
+import { DocumentData } from "firebase/firestore";
+
 export interface UserStateInterface {
   currentUser: null | User;
 }
 export interface MessagesIntialStateInterface {
-  messages: Array<any>;
+  messages: Array<DocumentData>;
   areMessagesFetching: boolean;
-  error: null;
+  error: null | Error;
 }
 export interface MessagesActionTypesInterface {
   COVERT_SNAPSHOT_TO_MESSAGES_START: string;
   COVERT_SNAPSHOT_TO_MESSAGES_SUCCESS: string;
   COVERT_SNAPSHOT_TO_MESSAGES_FAILURE: string;
+}
+
+export interface FriendsActionTypesInterface {
+  COVERT_SNAPSHOT_TO_USER_FRIENDS_START: string;
+  COVERT_SNAPSHOT_TO_USER_FRIENDS_SUCCESS: string;
+  COVERT_SNAPSHOT_TO_USER_FRIENDS_FAILURE: string;
+  CLEAR_USER_FRIENDS_STATE: string;
 }
 
 export interface UserActionTypesInterface {
@@ -21,7 +30,15 @@ export interface UserActionTypesInterface {
 export interface GlobalStateInterface {
   messagesState: MessagesIntialStateInterface;
   userState: UserStateInterface;
+  userFriends: UserFriendsStateInterface;
 }
+
+export interface UserFriendsStateInterface {
+  friends: Array<DocumentData>;
+  areFriendsFetching: boolean;
+  error: null | Error;
+}
+
 export interface ActionInterface<T, P> {
   type: T;
   payload: P;

@@ -8,7 +8,10 @@ const INTIAL_STATE: MessagesIntialStateInterface = {
   error: null,
 };
 
-function messagesReducer(state = INTIAL_STATE, action: AnyAction) {
+function messagesReducer(
+  state = INTIAL_STATE,
+  action: AnyAction
+): MessagesIntialStateInterface {
   switch (action.type) {
     case MessagesActionTypes.COVERT_SNAPSHOT_TO_MESSAGES_START:
       return {

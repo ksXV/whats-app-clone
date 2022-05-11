@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 
-import ChatPage from "../pages/chat-page/chat-page.compoent";
+import ChatPage from "../pages/chat-page/chat-page.component";
 import SignInPage from "../pages/sign-in/sign-in.component";
 import SignUpPage from "../pages/sign-up/sign-up.component";
 
@@ -18,15 +18,16 @@ import { connect } from "react-redux";
 
 import { useAppDispatch } from "./hooks";
 
-import { AppDispatch, RootState } from "./store";
+import { RootState } from "./store";
 
 import { selectUser } from "../features/user/user.selector";
 import { getUserFromFirestore } from "../features/user/user.actions";
 
+import { clearUserFriendsState } from "../features/friends/friends.action";
+
 import "./App.scss";
 
 interface IAppProps {
-  dispatch: AppDispatch;
   userData: User | null;
 }
 
@@ -68,6 +69,7 @@ const App: React.FC<IAppProps> = ({ userData }) => {
         setCurrentPage("sign-in");
         signOut(auth);
         dispatch(getUserFromFirestore(null));
+        dispatch(clearUserFriendsState());
       }}
     />
   ) : currentPage === "sign-in" ? (

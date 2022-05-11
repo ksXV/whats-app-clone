@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-sans bg-main-color text-white overflow-hidden;
+  @apply bg-main-color text-white overflow-hidden font-sans;
 }
 .display-root {
   width: 50vw;

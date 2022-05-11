@@ -46,7 +46,7 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
           updateProfile(user, {
             displayName: username,
             photoURL:
-              "https://drive.google.com/file/d/1onXpQ6BOvLFeoMZvfy81nBeKZy6rrM_1/view",
+              "https://i.ibb.co/D8HyJDn/blank-profile-picture-973460-640.png",
           }).then(() => {
             setPersistence(auth, browserSessionPersistence).then(() => {
               signUserUp();

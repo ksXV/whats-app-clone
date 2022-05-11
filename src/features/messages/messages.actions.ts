@@ -8,7 +8,7 @@ type convertSnapshotToMessagesSuccessType = (P: DocumentData) => {
   type: string;
   payload: typeof P;
 };
-type convertSnapshotToMessagesFailureTypee = (P: unknown) => {
+type convertSnapshotToMessagesFailureTypee = (P: Error | unknown) => {
   type: string;
   payload: typeof P;
 };
@@ -38,7 +38,7 @@ export const convertSnapshotToMessagesAsync = (
           receivedSnapshot.docs.map((message) => message)
         )
       );
-    } catch (err: unknown) {
+    } catch (err: unknown | Error) {
       dispatch(convertSnapshotToMessagesFailure(err));
     }
   };

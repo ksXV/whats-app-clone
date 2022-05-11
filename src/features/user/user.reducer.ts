@@ -11,7 +11,7 @@ const INTIAL_STATE: UserStateInterface = {
 function userReducer(
   state = INTIAL_STATE,
   action: ActionInterface<string, User | null>
-) {
+): UserStateInterface {
   switch (action.type) {
     case UserActionTypes.GET_USER_FROM_FIRESTORE:
       return {
