@@ -31,6 +31,7 @@ export interface GlobalStateInterface {
   messagesState: MessagesIntialStateInterface;
   userState: UserStateInterface;
   userFriends: UserFriendsStateInterface;
+  currentConversation: CurrentConversationInterface;
 }
 
 export interface UserFriendsStateInterface {
@@ -42,4 +43,20 @@ export interface UserFriendsStateInterface {
 export interface ActionInterface<T, P> {
   type: T;
   payload: P;
+}
+
+export interface CurrentConversationInterface {
+  currentConversationUser: DocumentData | {};
+  currentConversationMessages: Array<DocumentData>;
+  areMessagesFetching: boolean;
+  error: unknown;
+}
+export interface FirebaseUserData {
+  displayName: string;
+  email: string;
+  joined: {
+    seconds: number;
+    nanoseconds: number;
+  };
+  photoURL: string;
 }

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useRef } from "react";
 
 import ProfileDrawer from "../profile-drawer/profile-drawer.component";
 import AddConversationDrawer from "../add-convo-drawer/add-convo-drawer.component";

@@ -22,7 +22,7 @@ import { User } from "firebase/auth";
 import { converSnapshotToUserFriendsAsync } from "../../features/friends/friends.action";
 import { selectUserFriends } from "../../features/friends/friends.selector";
 
-interface MFDProps extends React.HTMLProps<HTMLDivElement> {
+interface MFDProps {
   changeToConvosDrawer: () => void;
   currentUser: User | null;
   userFriends: Array<DocumentData>;

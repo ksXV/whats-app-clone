@@ -1,9 +1,16 @@
 import * as React from "react";
+
+import { FirebaseUserData } from "../../features/interfaces";
+
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-interface ChatHeaderProps {}
+interface ChatHeaderProps {
+  conversationDataConverted: FirebaseUserData;
+}
 
-const ChatHeader: React.FC<ChatHeaderProps> = () => {
+const ChatHeader: React.FC<ChatHeaderProps> = ({
+  conversationDataConverted,
+}) => {
   return (
     <div className="flex flex-row items-center justify-between w-[100%] py-3 px-5 bg-[#1A2329]">
       <div className="flex flex-row justify-center items-center">
@@ -14,18 +21,24 @@ const ChatHeader: React.FC<ChatHeaderProps> = () => {
           }}
         >
           <img
-            src={
-              "https://i.pinimg.com/originals/06/8c/e3/068ce387d4a2d024d63f3b17ce77cd98.jpg"
-            }
+            src={`${conversationDataConverted.photoURL}`}
             className="rounded-full cursor-pointer unselectable-text"
             alt="profile-picture"
           />
         </div>
         <div className="px-4 pb-2">
-          <h2 className="text-lg font-semibold unselectable-text">George</h2>
+          <h2 className="text-lg font-semibold unselectable-text">
+            {conversationDataConverted.displayName}
+          </h2>
         </div>
       </div>
-      <BsThreeDotsVertical size={"25"} className="cursor-pointer" />
+      <BsThreeDotsVertical
+        onClick={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+        size={"25"}
+        className="cursor-pointer"
+      />
     </div>
   );
 };

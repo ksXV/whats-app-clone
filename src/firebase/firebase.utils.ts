@@ -1,17 +1,20 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
   getDocs,
   getFirestore,
-  onSnapshot,
   query,
   setDoc,
   where,
 } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, User } from "firebase/auth";
+import { selectUserDataFromConversationData } from "../features/current-conversation/current-conversation.selector";
+import { store } from "../app/store";
+import { selectUser } from "../features/user/user.selector";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -92,4 +95,30 @@ export async function addFriendFunction(
   } else {
     throw new Error("You can't add yourself dummy!");
   }
+}
+/*
+We are going to get the uids from the redux state and then 
+fetch them into this function and then write the messages 
+into firestore with specifed keys i.e : recevied / sent 
+and with the date they were sent 
+and we are only going to pass an argument the text to write
+*/
+
+export async function sendTextToSelectedUser(
+  currentUserUID: string,
+  selectedUserUID: string,
+  messageToWrite: string
+) {
+  console.log(selectUser(store.getState()));
+  const friendUserDocRef = collection(
+    db,
+    `users/${selectedUserUID}/friends`,
+    currentUserUID,
+    "messages"
+  );
+  // await addDoc(friendUserDocRef, {
+  //   receivedMessage: messageToWrite,
+  //   dateRecevied: new Date(),
+  // }).then(() => console.log("done"));
+  // console.log(friendUserDocRef);
 }
