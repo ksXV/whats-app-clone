@@ -4,6 +4,7 @@ import {
   addDoc,
   collection,
   doc,
+  DocumentData,
   getDoc,
   getDocs,
   getFirestore,
@@ -104,21 +105,38 @@ and with the date they were sent
 and we are only going to pass an argument the text to write
 */
 
-export async function sendTextToSelectedUser(
-  currentUserUID: string,
-  selectedUserUID: string,
-  messageToWrite: string
-) {
-  console.log(selectUser(store.getState()));
-  const friendUserDocRef = collection(
-    db,
-    `users/${selectedUserUID}/friends`,
-    currentUserUID,
-    "messages"
-  );
-  // await addDoc(friendUserDocRef, {
-  //   receivedMessage: messageToWrite,
-  //   dateRecevied: new Date(),
-  // }).then(() => console.log("done"));
-  // console.log(friendUserDocRef);
+export async function sendMessageToFirestore(messageToWrite: string) {
+  try {
+    //this is our current user UID
+    const { uid }: { uid: string } = selectUser(store.getState())!;
+
+    //this is the selected user UID
+    const { id } = selectUserDataFromConversationData(
+      store.getState()
+    ) as DocumentData;
+
+    const friendUserDocRef = collection(
+      db,
+      `users/${id as string}/friends`,
+      uid,
+      "messages"
+    );
+    await addDoc(friendUserDocRef, {
+      receivedMessage: messageToWrite,
+      dateRecevied: new Date(),
+    }).then(async () => {
+      const friendUserDocRef = collection(
+        db,
+        `users/${uid}/friends`,
+        id,
+        "messages"
+      );
+      await addDoc(friendUserDocRef, {
+        sentMessage: messageToWrite,
+        dateSent: new Date(),
+      });
+    });
+  } catch {
+    console.log("Something went wrong sending the message.");
+  }
 }

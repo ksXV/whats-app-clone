@@ -8,3 +8,9 @@ export const selectUserDataFromConversationData = createSelector(
   [selectConversationDataFromStore],
   (selectedUserData) => selectedUserData.currentConversationUser
 );
+
+export const selectMessagesFromConversationData = createSelector(
+  [selectConversationDataFromStore],
+  (selectedConversationData) =>
+    selectedConversationData.currentConversationMessages
+);

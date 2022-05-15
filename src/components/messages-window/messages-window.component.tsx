@@ -30,12 +30,14 @@ const FAKE_MESSAGES = [
 const MessagesWindow: React.FC<MessagesWindowProps> = ({ messages }) => {
   return (
     <div className="overflow-y-scroll flex flex-col">
-      {FAKE_MESSAGES.map((message, index) => {
-        if (index % 2 !== 0)
-          return <Messages showRight={false} key={index} message={message} />;
-        else {
-          return <Messages showRight={true} key={index} message={message} />;
-        }
+      {messages.map((message) => {
+        return (
+          <Messages
+            showRight={true}
+            key={message.id}
+            message={message.data().sentMessage}
+          />
+        );
       })}
     </div>
   );

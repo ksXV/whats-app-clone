@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { RootState } from "../../app/store";
+import { useAppDispatch } from "../../app/hooks";
 import { selectUserFriends } from "../../features/friends/friends.selector";
 import { selectUser } from "../../features/user/user.selector";
+import { converSnapshotToUserFriendsAsync } from "../../features/friends/friends.action";
+import { switchToCurrentConversationAsync } from "../../features/current-conversation/current-conversation.actions";
 
 import CustomSearchBox from "../custom-search-box/custom-search-box.component";
 import LeftDrawerHeader from "../left-drawer-header/left-drawer-header.component";
@@ -13,9 +16,6 @@ import UserBox from "../user-box/user-box.component";
 
 import { DocumentData } from "firebase/firestore";
 import { User } from "firebase/auth";
-import { converSnapshotToUserFriendsAsync } from "../../features/friends/friends.action";
-import { useAppDispatch } from "../../app/hooks";
-import { switchToCurrentConversation } from "../../features/current-conversation/current-conversation.actions";
 
 interface AddConversationDrawerProps {
   changeToConvosDrawer: () => void;
@@ -79,7 +79,7 @@ const AddConversationDrawer: React.FC<AddConversationDrawerProps> = ({
               key={friend.id}
               userData={friend.data()}
               onClick={() => {
-                dispatch(switchToCurrentConversation(friend));
+                dispatch(switchToCurrentConversationAsync(friend));
               }}
               typeOfButton={"plus"}
             />
