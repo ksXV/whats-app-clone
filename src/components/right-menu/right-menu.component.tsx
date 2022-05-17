@@ -45,7 +45,6 @@ const RightMenu: React.FC<RightMenuProps> = ({
     }
     return () => setIsChatShowing(false);
   }, [selectedUserData]);
-  // console.log(selectedUserData);
   return (
     <div
       className={`w-[70%] h-screen flex ${

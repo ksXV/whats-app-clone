@@ -123,7 +123,7 @@ export async function sendMessageToFirestore(messageToWrite: string) {
     );
     await addDoc(friendUserDocRef, {
       receivedMessage: messageToWrite,
-      dateRecevied: new Date(),
+      dateSent: new Date(),
     }).then(async () => {
       const friendUserDocRef = collection(
         db,

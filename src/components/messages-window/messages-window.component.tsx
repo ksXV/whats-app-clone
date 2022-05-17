@@ -1,47 +1,53 @@
 import * as React from "react";
+import { createRef } from "react";
 
 import Messages from "../message/message.component";
 
-interface MessagesWindowProps {
-  messages: Array<any>;
-}
+import { DocumentData } from "firebase/firestore";
 
-const FAKE_MESSAGES = [
-  "hello there",
-  "hi",
-  "how are you ?",
-  "good you",
-  "very good actualy i was doing some homework",
-  "glad to hear",
-  "hello there",
-  "hi",
-  "how are you ?",
-  "good you",
-  "very good actualy i was doing some homework",
-  "glad to hear",
-  "hello there",
-  "hi",
-  "how are you ?",
-  "good you",
-  "very good actualy i was doing some homework",
-  "glad to hear",
-];
+interface MessagesWindowProps {
+  messages: Array<DocumentData>;
+}
+//get the focus on the last message
 
 const MessagesWindow: React.FC<MessagesWindowProps> = ({ messages }) => {
+  const divElement = createRef<HTMLDivElement>();
+
+  React.useEffect(() => {
+    if (messages.length !== 0) {
+      const divElementHeight = divElement.current!.clientHeight;
+      divElement.current?.scrollTo(0, divElementHeight);
+    }
+  }, [messages]);
+
   return (
-    <div className="overflow-y-scroll flex flex-col">
-      {messages.map((message) => {
-        return (
-          <Messages
-            showRight={true}
-            key={message.id}
-            message={message.data().sentMessage}
-          />
-        );
+    <div
+      ref={divElement}
+      className="overflow-y-scroll p-2 flex flex-col justify-start content-start h-screen"
+    >
+      {messages.map((message, index) => {
+        if (message.data().sentMessage !== undefined) {
+          return (
+            <Messages
+              showRight={true}
+              key={message.id}
+              message={message.data().sentMessage}
+            />
+          );
+        } else if (message.data().receivedMessage !== undefined) {
+          return (
+            <Messages
+              showRight={false}
+              key={message.id}
+              message={message.data().receivedMessage}
+            />
+          );
+        } else {
+          return null;
+        }
       })}
     </div>
   );
 };
 
-//upload this into a local state for now
 export default MessagesWindow;

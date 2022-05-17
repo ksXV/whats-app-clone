@@ -16,7 +16,7 @@ interface LeftMenuProps {
 interface LeftMenuState {
   isModalHidden: boolean;
   currentDrawer: string;
-  drawerElement: any;
+  drawerElement: string;
 }
 
 class LeftMenu extends Component<LeftMenuProps, LeftMenuState> {
@@ -25,7 +25,7 @@ class LeftMenu extends Component<LeftMenuProps, LeftMenuState> {
     this.state = {
       isModalHidden: true,
       currentDrawer: "conversations-drawer",
-      drawerElement: null,
+      drawerElement: "",
     };
   }
 

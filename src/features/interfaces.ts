@@ -60,3 +60,18 @@ export interface FirebaseUserData {
   };
   photoURL: string;
 }
+
+/*
+Rewrite the redux logic so we have add conversation 
+& and get current conversation & get all conversations;
+
+get all conversation array > object : 
+{ 
+
+  ...user data,
+  lastMessageData:{
+    ...messsage data
+  }
+}
+
+*/
