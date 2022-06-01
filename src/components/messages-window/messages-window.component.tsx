@@ -16,30 +16,32 @@ const MessagesWindow: React.FC<MessagesWindowProps> = ({ messages }) => {
   React.useEffect(() => {
     if (messages.length !== 0) {
       const divElementHeight = divElement.current!.clientHeight;
-      divElement.current?.scrollTo(0, divElementHeight);
+      divElement.current?.scrollTo(0, divElementHeight * Infinity);
     }
   }, [messages]);
+
+  console.log("i got called");
 
   return (
     <div
       ref={divElement}
       className="overflow-y-scroll p-2 flex flex-col justify-start content-start h-screen"
     >
-      {messages.map((message, index) => {
-        if (message.data().sentMessage !== undefined) {
+      {messages.map((message) => {
+        if (message.data().isRecevied === false) {
           return (
             <Messages
               showRight={true}
               key={message.id}
-              message={message.data().sentMessage}
+              message={message.data().message}
             />
           );
-        } else if (message.data().receivedMessage !== undefined) {
+        } else if (message.data().isRecevied === true) {
           return (
             <Messages
               showRight={false}
               key={message.id}
-              message={message.data().receivedMessage}
+              message={message.data().message}
             />
           );
         } else {

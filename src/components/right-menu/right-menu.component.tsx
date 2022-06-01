@@ -65,7 +65,9 @@ const RightMenu: React.FC<RightMenuProps> = ({
           />
         </>
       ) : (
-        <h2>Select a conversation from the left menu.</h2>
+        <h2 className="font-bold text-lg">
+          Select a conversation from the left menu.
+        </h2>
       )}
     </div>
   );

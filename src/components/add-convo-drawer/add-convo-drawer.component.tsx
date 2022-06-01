@@ -47,7 +47,7 @@ const AddConversationDrawer: React.FC<AddConversationDrawerProps> = ({
     if (userFriends.length === 0) {
       dispatch(converSnapshotToUserFriendsAsync(userData!.uid));
     }
-    return;
+    return () => {};
   }, [shouldSlide]);
 
   const changeToConvosDrawerSliding = (): void => {
@@ -72,7 +72,7 @@ const AddConversationDrawer: React.FC<AddConversationDrawerProps> = ({
           }}
         />
       </div>
-      <div className="border-x-2 border-t-2 border-gray-800 p-2 mx-3">
+      <div className="border-x-2 border-t-2 border-gray-800 p-2 mx-3 overflow-y-scroll">
         {userFriends.length !== 0 ? (
           userFriendsFiltered.map((friend) => (
             <UserBox

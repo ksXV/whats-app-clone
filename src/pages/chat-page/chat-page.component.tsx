@@ -10,12 +10,14 @@ import { storeUserinFireStore } from "../../firebase/firebase.utils";
 
 import { connect } from "react-redux";
 
+import { converSnapshotToUserFriendsAsync } from "../../features/friends/friends.action";
 import { selectMessages } from "../../features/messages/messages.selector";
 import { selectUser } from "../../features/user/user.selector";
 
 import { RootState } from "../../app/store";
 
 import "./chat-page.styles.scss";
+import { useAppDispatch } from "../../app/hooks";
 
 interface IChatPageProps {
   signUserOut: () => void;
@@ -23,9 +25,13 @@ interface IChatPageProps {
   userData: User | null;
 }
 const ChatPage: React.FC<IChatPageProps> = ({ userData, signUserOut }) => {
+  const dispatch = useAppDispatch();
+
   React.useEffect(() => {
     storeUserinFireStore(userData!);
-  }, []);
+    dispatch(converSnapshotToUserFriendsAsync(userData!.uid));
+    return () => {};
+  }, [userData]);
 
   if (userData !== null) {
     return (

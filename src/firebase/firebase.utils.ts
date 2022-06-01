@@ -13,8 +13,11 @@ import {
   where,
 } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, User } from "firebase/auth";
+
 import { selectUserDataFromConversationData } from "../features/current-conversation/current-conversation.selector";
+
 import { store } from "../app/store";
+
 import { selectUser } from "../features/user/user.selector";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -122,8 +125,9 @@ export async function sendMessageToFirestore(messageToWrite: string) {
       "messages"
     );
     await addDoc(friendUserDocRef, {
-      receivedMessage: messageToWrite,
+      message: messageToWrite,
       dateSent: new Date(),
+      isRecevied: true,
     }).then(async () => {
       const friendUserDocRef = collection(
         db,
@@ -132,8 +136,9 @@ export async function sendMessageToFirestore(messageToWrite: string) {
         "messages"
       );
       await addDoc(friendUserDocRef, {
-        sentMessage: messageToWrite,
+        message: messageToWrite,
         dateSent: new Date(),
+        isRecevied: false,
       });
     });
   } catch {

@@ -8,18 +8,16 @@ interface InputBoxProps extends React.HTMLAttributes<HTMLElement> {
   labelClass?: string;
   required: boolean;
 }
-const InputBox: React.FC<InputBoxProps> = ({
-  labelClass,
-  label,
-  required,
-  ...otherProps
-}) => {
-  return (
-    <>
-      {label ? <label className={labelClass}>{label}</label> : null}
-      <input required={required} {...otherProps} />
-    </>
-  );
-};
+
+const InputBox = React.forwardRef<HTMLInputElement, InputBoxProps>(
+  ({ labelClass, label, required, ...otherProps }, ref) => {
+    return (
+      <>
+        {label ? <label className={labelClass}>{label}</label> : null}
+        <input ref={ref} required={required} {...otherProps} />
+      </>
+    );
+  }
+);
 
 export default InputBox;

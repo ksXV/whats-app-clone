@@ -4,6 +4,7 @@ import LeftMenuHeader from "../left-menu-header/left-menu-header.component";
 import LeftDrawer from "../left-drawer/left-drawer.component";
 import Modal from "../modal/modal.component";
 import CustomSearchBox from "../custom-search-box/custom-search-box.component";
+import OpenCoversations from "../open-convos/open-convos.component";
 
 import { User } from "firebase/auth";
 
@@ -80,6 +81,7 @@ class LeftMenu extends Component<LeftMenuProps, LeftMenuState> {
           <div className="w-[100%] p-2 pl-3 bg-[#0E161A] border-y-[0.2px] border-gray-700">
             <CustomSearchBox addFriendBox={false} />
           </div>
+          <OpenCoversations />
         </div>
         <LeftDrawer
           changeToConvosDrawer={this.changeToConvosDrawer}
