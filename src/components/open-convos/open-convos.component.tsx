@@ -27,9 +27,8 @@ const OpenConversations: React.FC<OpenConvosProps> = ({
   currentUser,
 }) => {
   return (
-    <div className="p-2 overflow-y-scroll">
+    <div className="py-1 overflow-y-scroll flex flex-col justify-center items-center">
       {userFriends.map((friendUIDObject) => {
-        console.log(friendUIDObject);
         return (
           <ConversationBox
             key={friendUIDObject.id}

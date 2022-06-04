@@ -18,9 +18,7 @@ const MessagesWindow: React.FC<MessagesWindowProps> = ({ messages }) => {
       const divElementHeight = divElement.current!.clientHeight;
       divElement.current?.scrollTo(0, divElementHeight * Infinity);
     }
-  }, [messages]);
-
-  console.log("i got called");
+  }, [divElement, messages]);
 
   return (
     <div

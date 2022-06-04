@@ -9,26 +9,23 @@ import {
   selectMessagesFromConversationData,
   selectUserDataFromConversationData,
 } from "../../features/current-conversation/current-conversation.selector";
-import { selectUser } from "../../features/user/user.selector";
 
 import ChatHeader from "../chat-header/chat-header.component";
 import MessagesWindow from "../messages-window/messages-window.component";
 import TextMessagesInput from "../text-messages-input/text-messages-input.component";
 
-import { User } from "firebase/auth";
 import { DocumentData } from "firebase/firestore";
 import { sendMessageToFirestore } from "../../firebase/firebase.utils";
 
 interface RightMenuProps {
   selectedUserData: DocumentData;
-  currentUser: User | null;
+
   currentMessages: Array<DocumentData>;
 }
 
 const RightMenu: React.FC<RightMenuProps> = ({
   selectedUserData,
   currentMessages,
-  currentUser,
 }) => {
   const [isChatShowing, setIsChatShowing] = useState<boolean>(false);
   const [textFromTextBox, setTextFromTextBox] = useState<string>("");
@@ -75,7 +72,6 @@ const RightMenu: React.FC<RightMenuProps> = ({
 
 const mapStateToProps = (state: RootState) => ({
   selectedUserData: selectUserDataFromConversationData(state),
-  currentUser: selectUser(state),
   currentMessages: selectMessagesFromConversationData(state),
 });
 export default connect(mapStateToProps)(RightMenu);

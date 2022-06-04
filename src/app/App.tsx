@@ -23,8 +23,6 @@ import { RootState } from "./store";
 import { selectUser } from "../features/user/user.selector";
 import { getUserFromFirestore } from "../features/user/user.actions";
 
-import { clearUserFriendsState } from "../features/friends/friends.action";
-
 import "./App.scss";
 
 interface IAppProps {
@@ -59,38 +57,42 @@ const App: React.FC<IAppProps> = ({ userData }) => {
         setisUserAuthed(true);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, userData]);
+
+  const handleSignOut = () => {
+    setisUserAuthed(false);
+    setCurrentPage("sign-in");
+    //find a way to handle the sign out and clear the state
+    dispatch(handleSignOut());
+    signOut(auth);
+  };
+  const handleSignIn = () => {
+    dispatch(getUserFromFirestore(auth.currentUser));
+    setisUserAuthed(true);
+  };
+
+  const handleSetCurrentPageToSignUp = () => {
+    setCurrentPage("sign-up");
+  };
+  const handleSetCurrentPageToSignIn = () => {
+    setCurrentPage("sign-in");
+  };
 
   return isUserAuthed ? (
-    <ChatPage
-      signUserOut={() => {
-        setisUserAuthed(false);
-        setCurrentPage("sign-in");
-        signOut(auth);
-        dispatch(getUserFromFirestore(null));
-        dispatch(clearUserFriendsState());
-      }}
-    />
+    <ChatPage signUserOut={handleSignOut} />
   ) : currentPage === "sign-in" ? (
     <div className="display-root bg-secondary-color">
       <SignInPage
-        changeCurrentPage={() => setCurrentPage("sign-up")}
-        signUserIn={() => {
-          dispatch(getUserFromFirestore(auth.currentUser));
-          setisUserAuthed(true);
-        }}
+        changeCurrentPage={handleSetCurrentPageToSignUp}
+        signUserIn={handleSignIn}
         signInWithGoogle={signInWithGoogle}
       />
     </div>
   ) : currentPage === "sign-up" ? (
     <div className="display-root bg-secondary-color">
       <SignUpPage
-        changeCurrentPage={() => setCurrentPage("sign-in")}
-        signUserUp={() => {
-          dispatch(getUserFromFirestore(auth.currentUser));
-          setisUserAuthed(true);
-        }}
+        changeCurrentPage={handleSetCurrentPageToSignIn}
+        signUserUp={handleSignIn}
       />
     </div>
   ) : null;

@@ -18,11 +18,6 @@ function userReducer(
         ...state,
         currentUser: action.payload,
       };
-    case UserActionTypes.SIGN_USER_OUT:
-      return {
-        ...state,
-        currentUser: null,
-      };
     default:
       return state;
   }

@@ -20,8 +20,6 @@ function friendsReducer(
       return { ...state, areFriendsFetching: false, friends: action.payload };
     case FriendsActionTypes.COVERT_SNAPSHOT_TO_USER_FRIENDS_FAILURE:
       return { ...state, areFriendsFetching: false, error: action.payload };
-    case FriendsActionTypes.CLEAR_USER_FRIENDS_STATE:
-      return INTIAL_STATE;
     default:
       return state;
   }

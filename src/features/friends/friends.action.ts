@@ -23,10 +23,6 @@ type converSnapshotToUserFriendsSuccessType = (P: Array<DocumentData>) => {
   payload: typeof P;
 };
 
-type clearUserFriendsStateType = () => {
-  type: string;
-};
-
 export const convertSnapshotToUserFriendsStart: convertSnapshotToUserFriendsStartType =
   () => ({
     type: FriendsActionTypes.COVERT_SNAPSHOT_TO_USER_FRIENDS_START,
@@ -41,10 +37,6 @@ export const convertSnapshotToUserFriendsSuccess: converSnapshotToUserFriendsSuc
     type: FriendsActionTypes.COVERT_SNAPSHOT_TO_USER_FRIENDS_SUCCESS,
     payload: friendsArray,
   });
-
-export const clearUserFriendsState: clearUserFriendsStateType = () => ({
-  type: FriendsActionTypes.CLEAR_USER_FRIENDS_STATE,
-});
 
 export const converSnapshotToUserFriendsAsync = (
   currentUserUID: string

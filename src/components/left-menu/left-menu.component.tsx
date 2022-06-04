@@ -28,10 +28,25 @@ class LeftMenu extends Component<LeftMenuProps, LeftMenuState> {
       currentDrawer: "conversations-drawer",
       drawerElement: "",
     };
+    // this.changeModalState = this.changeModalState.bind(this);
   }
-
+  componentDidMount() {
+    window.addEventListener("click", this.handleCheckIsModalOpen);
+  }
+  handleCheckIsModalOpen = () => {
+    console.log("handleCheckIsModalOpen ran");
+    const { isModalHidden } = this.state;
+    if (isModalHidden === false) {
+      this.changeModalState();
+    }
+  };
+  componentWillUnmount() {
+    window.removeEventListener("click", this.handleCheckIsModalOpen);
+  }
   changeModalState = (): void => {
+    console.log("changeModalState ran");
     this.setState((state) => ({
+      ...state,
       isModalHidden: !state.isModalHidden,
     }));
   };
@@ -41,7 +56,6 @@ class LeftMenu extends Component<LeftMenuProps, LeftMenuState> {
       currentDrawer: "profile-drawer",
     });
   };
-
   changeToConvosDrawer = (): void => {
     setTimeout(() => {
       this.setState({
@@ -49,12 +63,12 @@ class LeftMenu extends Component<LeftMenuProps, LeftMenuState> {
       });
     }, 300);
   };
-
   changeToAddConvoDrawer = (): void => {
     this.setState({
       currentDrawer: "add-conversation-drawer",
     });
   };
+
   changeToFriendsList = (): void => {
     this.setState({
       currentDrawer: "manage-friends-list",

@@ -22,12 +22,10 @@ export interface FriendsActionTypesInterface {
   COVERT_SNAPSHOT_TO_USER_FRIENDS_START: string;
   COVERT_SNAPSHOT_TO_USER_FRIENDS_SUCCESS: string;
   COVERT_SNAPSHOT_TO_USER_FRIENDS_FAILURE: string;
-  CLEAR_USER_FRIENDS_STATE: string;
 }
 
 export interface UserActionTypesInterface {
   GET_USER_FROM_FIRESTORE: string;
-  SIGN_USER_OUT: string;
 }
 
 export interface GlobalStateInterface {
