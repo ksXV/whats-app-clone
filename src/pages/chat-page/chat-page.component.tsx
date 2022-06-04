@@ -15,9 +15,9 @@ import { selectMessages } from "../../features/messages/messages.selector";
 import { selectUser } from "../../features/user/user.selector";
 
 import { RootState } from "../../app/store";
+import { useAppDispatch } from "../../app/hooks";
 
 import "./chat-page.styles.scss";
-import { useAppDispatch } from "../../app/hooks";
 
 interface IChatPageProps {
   signUserOut: () => void;
@@ -31,7 +31,7 @@ const ChatPage: React.FC<IChatPageProps> = ({ userData, signUserOut }) => {
     storeUserinFireStore(userData!);
     dispatch(converSnapshotToUserFriendsAsync(userData!.uid));
     return () => {};
-  }, [userData]);
+  }, [dispatch, userData]);
 
   if (userData !== null) {
     return (
@@ -41,7 +41,11 @@ const ChatPage: React.FC<IChatPageProps> = ({ userData, signUserOut }) => {
       </div>
     );
   } else {
-    return null;
+    return (
+      <div className="flex justify-center items-center text-8xl text-black">
+        Something went wrong X_X !
+      </div>
+    );
   }
 };
 const mapStateToProps = (state: RootState) => ({

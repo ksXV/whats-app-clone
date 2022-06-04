@@ -8,10 +8,11 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ logUserOut, isModalHidden }) => {
+  console.log(isModalHidden);
   return (
     <div
       className={`${
-        isModalHidden ? "" : "modal"
+        isModalHidden ? "modal-close" : "modal-open"
       } w-44 h-48 absolute top-12 left-52 bottom-0 right-0 rounded bg-[#1C272D] shadow-xl z-50`}
     >
       <div className="py-3 w-[100%] h-[100%]">

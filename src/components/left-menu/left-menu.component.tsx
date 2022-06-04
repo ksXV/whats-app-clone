@@ -11,7 +11,7 @@ import { User } from "firebase/auth";
 import "./left-menu.styles.scss";
 
 interface LeftMenuProps {
-  user: User | null;
+  user: User;
   logUserOut: () => void;
 }
 interface LeftMenuState {
@@ -33,18 +33,17 @@ class LeftMenu extends Component<LeftMenuProps, LeftMenuState> {
   componentDidMount() {
     window.addEventListener("click", this.handleCheckIsModalOpen);
   }
-  handleCheckIsModalOpen = () => {
-    console.log("handleCheckIsModalOpen ran");
-    const { isModalHidden } = this.state;
-    if (isModalHidden === false) {
-      this.changeModalState();
-    }
-  };
   componentWillUnmount() {
     window.removeEventListener("click", this.handleCheckIsModalOpen);
   }
+  handleCheckIsModalOpen = () => {
+    setTimeout(() => {
+      if (!this.state.isModalHidden) {
+        this.changeModalState();
+      }
+    }, 300);
+  };
   changeModalState = (): void => {
-    console.log("changeModalState ran");
     this.setState((state) => ({
       ...state,
       isModalHidden: !state.isModalHidden,

@@ -6,8 +6,11 @@
   @apply w-[100%] px-4 text-[1.1rem] font-normal py-3 hover:bg-[#131B21] transition-all duration-100 cursor-pointer;
 }
 
-.modal {
+.modal-open {
   animation: appear-from-tr-corner 0.2s linear;
+}
+.modal-close {
+  animation: disappear-from-tr-corner 0.2s linear;
 }
 
 @keyframes appear-from-tr-corner {
@@ -17,6 +20,16 @@
   }
   to {
     transform: scale(1);
+    transform-origin: top right;
+  }
+}
+@keyframes disappear-from-tr-corner {
+  from {
+    transform: scale(1);
+    transform-origin: top right;
+  }
+  to {
+    transform: scale(0);
     transform-origin: top right;
   }
 }

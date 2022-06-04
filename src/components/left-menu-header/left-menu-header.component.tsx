@@ -7,7 +7,7 @@ import { BiMessageAdd } from "react-icons/bi";
 import { User } from "firebase/auth";
 
 interface LeftMenuHeaderProps {
-  user: User | null;
+  user: User;
   changeModalState: () => void;
   toProfileDrawer: () => void;
   toAddConvoDrawer: () => void;
@@ -21,6 +21,10 @@ const LeftMenuHeader: React.FC<LeftMenuHeaderProps> = ({
   toAddConvoDrawer,
   toFriendsList,
 }) => {
+  const clickHandler = (e: React.SyntheticEvent) => {
+    e.stopPropagation();
+    changeModalState();
+  };
   return (
     <div className="flex items-center justify-between w-[100%] py-3 px-3 bg-[#1A2329]">
       <div
@@ -28,7 +32,7 @@ const LeftMenuHeader: React.FC<LeftMenuHeaderProps> = ({
         onClick={toProfileDrawer}
       >
         <img
-          src={`${user!.photoURL}`}
+          src={`${user.photoURL}`}
           className="rounded-full cursor-pointer unselectable-text"
           alt="profile-picture"
         />
@@ -48,7 +52,7 @@ const LeftMenuHeader: React.FC<LeftMenuHeaderProps> = ({
         <BsThreeDotsVertical
           size={"26"}
           className="cursor-pointer mx-1 unselectable-text"
-          onClick={changeModalState}
+          onClick={clickHandler}
         />
       </div>
     </div>
