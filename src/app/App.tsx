@@ -63,15 +63,17 @@ const App: React.FC<IAppProps> = ({ userData }) => {
   const handleSignOut = () => {
     setisUserAuthed(false);
     setCurrentPage("sign-in");
-    //find a way to handle the sign out and clear the state
     dispatch(handleUserSignOut());
+    deleteUserCredFromSessionStorage();
     signOut(auth);
   };
   const handleSignIn = () => {
     dispatch(getUserFromFirestore(auth.currentUser));
     setisUserAuthed(true);
   };
-
+  const deleteUserCredFromSessionStorage = (): void => {
+    window.sessionStorage.clear();
+  };
   const handleSetCurrentPageToSignUp = () => {
     setCurrentPage("sign-up");
   };
