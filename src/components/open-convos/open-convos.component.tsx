@@ -1,16 +1,8 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
 
 import ConversationBox from "../convo-box/convo-box.component";
 
-import { db } from "../../firebase/firebase.utils";
-
-import {
-  collection,
-  DocumentData,
-  onSnapshot,
-  QuerySnapshot,
-} from "firebase/firestore";
+import { DocumentData } from "firebase/firestore";
 import { connect } from "react-redux";
 import { RootState } from "../../app/store";
 import { User } from "firebase/auth";

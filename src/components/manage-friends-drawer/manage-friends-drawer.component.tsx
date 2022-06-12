@@ -59,7 +59,7 @@ const ManageFriendsDrawer: React.FC<MFDProps> = ({
     if (userFriends.length === 0) {
       dispatch(converSnapshotToUserFriendsAsync(currentUser!.uid));
     }
-  }, [currentUser]);
+  }, [currentUser, dispatch, userFriends.length]);
 
   const changeHandler = (event: React.SyntheticEvent<HTMLInputElement>) => {
     setAddFriendBoxValue((event.target as HTMLInputElement).value);
