@@ -22,6 +22,7 @@ import { RootState } from "./store";
 
 import { selectUser } from "../features/user/user.selector";
 import { getUserFromFirestore } from "../features/user/user.actions";
+import { handleUserSignOut } from "../features/handle-signout/handle-signout.action";
 
 import "./App.scss";
 
@@ -63,7 +64,7 @@ const App: React.FC<IAppProps> = ({ userData }) => {
     setisUserAuthed(false);
     setCurrentPage("sign-in");
     //find a way to handle the sign out and clear the state
-    dispatch(handleSignOut());
+    dispatch(handleUserSignOut());
     signOut(auth);
   };
   const handleSignIn = () => {

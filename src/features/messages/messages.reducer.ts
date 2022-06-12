@@ -30,6 +30,8 @@ function messagesReducer(
         areMessagesFetching: false,
         error: action.payload,
       };
+    case "REQUEST_SIGN_OUT":
+      return INTIAL_STATE;
     default:
       return state;
   }

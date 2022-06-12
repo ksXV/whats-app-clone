@@ -28,6 +28,8 @@ function CurrentConversationReducer(
       };
     case CurentConversationTypes.GET_CURRENT_CONVERSATION_MESSAGES_FAILURE:
       return { ...state, error: action.payload, areMessagesFetching: false };
+    case "REQUEST_SIGN_OUT":
+      return INTIAL_STATE;
     default:
       return state;
   }

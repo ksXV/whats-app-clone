@@ -25,12 +25,12 @@ import { selectUser } from "../features/user/user.selector";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAQ2Rlc2-XlkpZBhVn6bQ4NfCPQkXnhVY4",
-  authDomain: "chat-application-d9e4f.firebaseapp.com",
-  projectId: "chat-application-d9e4f",
-  storageBucket: "chat-application-d9e4f.appspot.com",
-  messagingSenderId: "1027517043352",
-  appId: "1:1027517043352:web:93e84272e18aafda6db6ed",
+  apiKey: "AIzaSyCg2TVXNaKKFMZUQlywZJkBbs20efu8irc",
+  authDomain: "whats-app-clone-ecd13.firebaseapp.com",
+  projectId: "whats-app-clone-ecd13",
+  storageBucket: "whats-app-clone-ecd13.appspot.com",
+  messagingSenderId: "50066808845",
+  appId: "1:50066808845:web:230c993211580178417544",
 };
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);

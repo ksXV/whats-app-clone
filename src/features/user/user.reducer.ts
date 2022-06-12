@@ -18,6 +18,8 @@ function userReducer(
         ...state,
         currentUser: action.payload,
       };
+    case "REQUEST_SIGN_OUT":
+      return INTIAL_STATE;
     default:
       return state;
   }
