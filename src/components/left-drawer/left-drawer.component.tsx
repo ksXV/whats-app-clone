@@ -4,8 +4,6 @@ import ProfileDrawer from "../profile-drawer/profile-drawer.component";
 import AddConversationDrawer from "../add-convo-drawer/add-convo-drawer.component";
 import ManageFriendsDrawer from "../manage-friends-drawer/manage-friends-drawer.component";
 
-import "./left-drawer.component.scss";
-
 interface LeftDrawerProps {
   currentDrawer: string;
   changeToConvosDrawer: () => void;

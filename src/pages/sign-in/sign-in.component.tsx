@@ -15,6 +15,7 @@ import {
 interface SignInPageState {
   email: string;
   password: string;
+  areCredentialsWrong: boolean;
 }
 
 interface SignInPageProps {
@@ -30,48 +31,70 @@ export default class SignInPage extends Component<
   state = {
     email: "",
     password: "",
+    areCredentialsWrong: false,
   };
   signIn = () => {
     const { email, password } = this.state;
     const { signUserIn } = this.props;
-    if (email && password) {
+    if (email !== "" && password !== "") {
       setPersistence(auth, browserSessionPersistence).then(() => {
         signInWithEmailAndPassword(auth, email, password)
           .then(() => {
             signUserIn();
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.error(err);
+            this.setState({ areCredentialsWrong: true });
+          });
       });
+    } else {
+      this.setState({ areCredentialsWrong: true });
     }
   };
   getInputValue = (event: React.SyntheticEvent<HTMLInputElement>) => {
     this.setState({
       [event.currentTarget.type]: event.currentTarget.value,
-    } as Pick<SignInPageState, keyof SignInPageState>);
+    } as unknown as Pick<SignInPageState, keyof SignInPageState>);
   };
 
   render() {
     const { signInWithGoogle, changeCurrentPage } = this.props;
+    const { areCredentialsWrong } = this.state;
     return (
-      <div className="flex h-screen flex-col justify-center w-96">
-        <InputBox
-          required={true}
-          label="Email:"
-          type="email"
-          className="input-box"
-          labelClass="text-left"
-          placeholder="type your email here"
-          onChange={this.getInputValue}
-        />
-        <InputBox
-          required={true}
-          label="Password:"
-          type="password"
-          className="input-box"
-          labelClass="text-left"
-          onChange={this.getInputValue}
-          placeholder="type your password here"
-        />
+      <div className="flex h-screen flex-col justify-center items-center w-96">
+        <div
+          className={`w-72 h-20 ${
+            areCredentialsWrong
+              ? `border-2 border-red-800 rounded-md bg-red-900 bg-opacity-50 shake-anim`
+              : ""
+          }`}
+        >
+          {areCredentialsWrong ? (
+            <h2 className="text-lg font-semibold mt-5">
+              Invalid email or password!
+            </h2>
+          ) : null}
+        </div>
+        <div className="mt-2">
+          <InputBox
+            required={true}
+            label="Email:"
+            type="email"
+            className="input-box"
+            labelClass="text-left"
+            placeholder="type your email here"
+            onChange={this.getInputValue}
+          />
+          <InputBox
+            required={true}
+            label="Password:"
+            type="password"
+            className="input-box"
+            labelClass="text-left"
+            onChange={this.getInputValue}
+            placeholder="type your password here"
+          />
+        </div>
         <div className="flex flex-col justify-between h-44 pt-5 w-48 place-self-center">
           <CustomButton className="custom-button" onClick={this.signIn}>
             Sign In

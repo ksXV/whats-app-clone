@@ -8,7 +8,6 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ logUserOut, isModalHidden }) => {
-  console.log(isModalHidden);
   return (
     <div
       className={`${

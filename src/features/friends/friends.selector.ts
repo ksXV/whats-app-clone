@@ -5,5 +5,9 @@ const selectUserFriendsFromRootState = (state: RootState) => state.userFriends;
 
 export const selectUserFriends = createSelector(
   [selectUserFriendsFromRootState],
-  (userFriends) => userFriends.friends
+  (userFriendsState) => userFriendsState.friends
+);
+export const selectAreUserFriendsFetching = createSelector(
+  [selectUserFriendsFromRootState],
+  (userFriendsState) => userFriendsState.areFriendsFetching
 );

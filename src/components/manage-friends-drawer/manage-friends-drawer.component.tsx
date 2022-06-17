@@ -91,8 +91,11 @@ const ManageFriendsDrawer: React.FC<MFDProps> = ({
         <CustomSearchBox addFriendBox={true} onChange={debounceChangeHandler} />
       </div>
       <div className="px-3 py-2 h-20">
-        {addFriendBoxValue.length === 0 ? null : addFriendBoxValue.length !==
-            0 && usersFound.length !== 0 ? (
+        {addFriendBoxValue.length === 0 ? (
+          <h1 className="text-center text-xl font-bold p-3">
+            Add a friend up there.
+          </h1>
+        ) : addFriendBoxValue.length !== 0 && usersFound.length !== 0 ? (
           usersFound.map((documentData: DocumentData) => (
             <UserBox
               key={documentData.id}

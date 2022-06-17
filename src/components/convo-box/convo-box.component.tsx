@@ -57,7 +57,6 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     });
     handleUserFriendData();
     return () => {
-      console.log("i unsubcribed");
       unsubscribe();
     };
   }, [currentUserUID, friendUID, handleUserFriendData]);

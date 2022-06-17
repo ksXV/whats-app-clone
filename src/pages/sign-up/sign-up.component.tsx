@@ -35,7 +35,7 @@ class SignUpPage extends Component<SignUpPageProps, SignUpPageState> {
     const { email, password, username, checkPassword } = this.state;
     const { signUserUp } = this.props;
     if (checkPassword !== password) {
-      alert("Your passwords don't match.");
+      throw new Error("Your passwords don't match.");
     } else if (
       email.length !== 0 &&
       password.length !== 0 &&

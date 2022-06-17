@@ -28,7 +28,6 @@ class LeftMenu extends Component<LeftMenuProps, LeftMenuState> {
       currentDrawer: "conversations-drawer",
       drawerElement: "",
     };
-    // this.changeModalState = this.changeModalState.bind(this);
   }
   componentDidMount() {
     window.addEventListener("click", this.handleCheckIsModalOpen);
