@@ -41,7 +41,7 @@ const App: React.FC<IAppProps> = ({ userData }) => {
 
   const signInWithGoogle = (): void => {
     setPersistence(auth, browserSessionPersistence).then(() => {
-      signInWithPopup(auth, googleAuth).then((result) => {
+      return signInWithPopup(auth, googleAuth).then((result) => {
         if (
           result.user !== undefined &&
           result.user.displayName !== undefined

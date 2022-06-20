@@ -38,7 +38,7 @@ export default class SignInPage extends Component<
     const { signUserIn } = this.props;
     if (email !== "" && password !== "") {
       setPersistence(auth, browserSessionPersistence).then(() => {
-        signInWithEmailAndPassword(auth, email, password)
+        return signInWithEmailAndPassword(auth, email, password)
           .then(() => {
             signUserIn();
           })
@@ -51,6 +51,13 @@ export default class SignInPage extends Component<
       this.setState({ areCredentialsWrong: true });
     }
   };
+
+  listenForEnter = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      this.signIn();
+    }
+  };
+
   getInputValue = (event: React.SyntheticEvent<HTMLInputElement>) => {
     this.setState({
       [event.currentTarget.type]: event.currentTarget.value,
@@ -96,7 +103,11 @@ export default class SignInPage extends Component<
           />
         </div>
         <div className="flex flex-col justify-between h-44 pt-5 w-48 place-self-center">
-          <CustomButton className="custom-button" onClick={this.signIn}>
+          <CustomButton
+            className="custom-button"
+            onClick={this.signIn}
+            onKeyPress={this.listenForEnter}
+          >
             Sign In
           </CustomButton>
           <CustomButton

@@ -8,10 +8,7 @@ import { DocumentData } from "firebase/firestore";
 import { connect } from "react-redux";
 import { RootState } from "../../app/store";
 import { User } from "firebase/auth";
-import {
-  selectAreUserFriendsFetching,
-  selectUserFriends,
-} from "../../features/friends/friends.selector";
+import { selectAreUserFriendsFetching } from "../../features/friends/friends.selector";
 import { selectUser } from "../../features/user/user.selector";
 
 interface OpenConvosProps {
@@ -30,20 +27,23 @@ const OpenConversations: React.FC<OpenConvosProps> = ({
     <ClipLoader size={60} color={"white"} css={cssOptions} />
   ) : (
     <div className="py-1 overflow-y-scroll flex flex-col justify-center items-center">
-      {userFriends.map((friendUIDObject) => {
-        return (
-          <ConversationBox
-            key={friendUIDObject.id}
-            currentUserUID={currentUser!.uid}
-            friendUID={friendUIDObject.id}
-          />
-        );
-      })}
+      {userFriends.length !== 0 ? (
+        userFriends.map((friendUIDObject) => {
+          return (
+            <ConversationBox
+              key={friendUIDObject.id}
+              currentUserUID={currentUser!.uid}
+              friendUID={friendUIDObject.id}
+            />
+          );
+        })
+      ) : (
+        <h1 className="text-lg font-semibold">Go chat with a friend!</h1>
+      )}
     </div>
   );
 };
 const mapStateToProps = (state: RootState) => ({
-  userFriends: selectUserFriends(state),
   currentUser: selectUser(state),
   areUsersFriendsFetching: selectAreUserFriendsFetching(state),
 });

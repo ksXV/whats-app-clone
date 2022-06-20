@@ -16,6 +16,7 @@ import { selectUser } from "../../features/user/user.selector";
 import { AiOutlineCheck } from "react-icons/ai";
 
 import "./profile-drawer.styles.scss";
+import { modifyUserName } from "../../firebase/firebase.utils";
 
 interface ProfileDrawerProps extends React.HTMLProps<HTMLDivElement> {
   userData: User | null;
@@ -54,6 +55,13 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
 
   const handleAllowChangesToUserName = (): void => {
     setAllowChangesToNameInput(!allowChangesToNameInput);
+    if (
+      allowChangesToNameInput === true &&
+      inputNameElement.current!.value !== ""
+    ) {
+      modifyUserName(inputNameElement.current!.value);
+      console.log("Success");
+    }
   };
 
   return (
@@ -88,7 +96,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
               className="bg-main-color rounded-xl focus-visible:outline-none cursor-text"
               isDisabled={!allowChangesToNameInput}
               required={false}
-              value={`${userData!.displayName!}`}
+              defaultValue={`${userData!.displayName!}`}
             />
             {allowChangesToNameInput ? (
               <AiOutlineCheck

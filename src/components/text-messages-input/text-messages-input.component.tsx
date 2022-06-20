@@ -13,6 +13,13 @@ const TextMessagesInput: React.FC<TextMessagesInputProps> = ({
   onInputChange,
   sendMessage,
 }) => {
+  const handleEnterKeyPressed = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      sendMessage();
+      textInput.current!.value = "";
+    }
+  };
+
   const textInput = createRef<HTMLInputElement>();
   return (
     <div className="py-3 px-2 bg-[#1A2329]">
@@ -20,12 +27,7 @@ const TextMessagesInput: React.FC<TextMessagesInputProps> = ({
         ref={textInput}
         type="text"
         className="bg-input-color rounded-xl border-2 border-gray-700 h-10 px-2 focus-visible:outline-none w-[100%]"
-        onKeyPress={(event): void => {
-          if (event.key === "Enter") {
-            sendMessage();
-            textInput.current!.value = "";
-          }
-        }}
+        onKeyPress={handleEnterKeyPressed}
         onChange={onInputChange}
         required={false}
         placeholder="type a message here"

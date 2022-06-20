@@ -10,9 +10,15 @@ import {
   getFirestore,
   query,
   setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
-import { getAuth, GoogleAuthProvider, User } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  updateProfile,
+  User,
+} from "firebase/auth";
 
 import { selectUserDataFromConversationData } from "../features/current-conversation/current-conversation.selector";
 
@@ -143,5 +149,21 @@ export async function sendMessageToFirestore(messageToWrite: string) {
     });
   } catch {
     console.log("Something went wrong sending the message.");
+  }
+}
+
+export function modifyUserName(displayName: string) {
+  try {
+    if (auth.currentUser === null) return new Error("User is null.");
+    updateProfile(auth.currentUser, {
+      displayName,
+    })
+      .then(() => {
+        const userDoc = doc(db, "users", auth.currentUser!.uid);
+        updateDoc(userDoc, { displayName });
+      })
+      .catch((err) => new Error(err));
+  } catch (err) {
+    console.log("Something went wrong updating the profile");
   }
 }

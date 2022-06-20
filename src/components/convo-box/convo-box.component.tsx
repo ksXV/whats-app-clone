@@ -80,14 +80,13 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
             : userFriendData.data().displayName}
         </h2>
         <h2 className="text-left">
-          Last message:{" "}
           {messageObject.message.length >= 20
             ? messageObject.message.substring(0, 20) + "..."
             : messageObject.message}
         </h2>
       </div>
     </div>
-  ) : messageObject === undefined ? null : (
+  ) : messageObject === undefined || userFriendData === undefined ? null : (
     <BeatLoader css={cssOptions} size={12} color={"white"} />
   );
 };

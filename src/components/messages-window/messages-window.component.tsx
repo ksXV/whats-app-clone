@@ -8,7 +8,6 @@ import { DocumentData } from "firebase/firestore";
 interface MessagesWindowProps {
   messages: Array<DocumentData>;
 }
-//get the focus on the last message
 
 const MessagesWindow: React.FC<MessagesWindowProps> = ({ messages }) => {
   const divElement = createRef<HTMLDivElement>();

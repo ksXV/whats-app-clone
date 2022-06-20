@@ -4,10 +4,17 @@ import "./modal.styles.scss";
 
 interface ModalProps {
   logUserOut: () => void;
+  toProfileDrawer: () => void;
+  toFriendsList: () => void;
   isModalHidden: boolean;
 }
 
-const Modal: React.FC<ModalProps> = ({ logUserOut, isModalHidden }) => {
+const Modal: React.FC<ModalProps> = ({
+  logUserOut,
+  isModalHidden,
+  toProfileDrawer,
+  toFriendsList,
+}) => {
   return (
     <div
       className={`${
@@ -18,8 +25,18 @@ const Modal: React.FC<ModalProps> = ({ logUserOut, isModalHidden }) => {
         <h3 className="modal__options unselectable-text" onClick={logUserOut}>
           Disconnect
         </h3>
-        <h3 className="modal__options unselectable-text">*WIP*</h3>
-        <h3 className="modal__options unselectable-text">*WIP*</h3>
+        <h3
+          className="modal__options unselectable-text"
+          onClick={toProfileDrawer}
+        >
+          Go to profile
+        </h3>
+        <h3
+          className="modal__options unselectable-text"
+          onClick={toFriendsList}
+        >
+          Go to friends
+        </h3>
       </div>
     </div>
   );
