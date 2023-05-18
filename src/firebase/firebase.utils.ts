@@ -61,7 +61,7 @@ export async function storeUserinFireStore(userData: User): Promise<void> {
       });
     }
   } catch {
-    console.log("Something went wrong here : storeUserinFireStore");
+    console.log("Something went wrong here: storeUserinFireStore");
   }
 }
 
