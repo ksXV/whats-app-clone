@@ -37,13 +37,14 @@ const ManageFriendsDrawer: React.FC<MFDProps> = ({
 }) => {
   const [addFriendBoxValue, setAddFriendBoxValue] = useState<string>("");
   const [usersFound, setUsersFound] = useState<Array<DocumentData>>([]);
-  const drawerElement = useRef<HTMLDivElement>(null);
+  const drawerElement = useRef<HTMLDivElement | null>(null);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (shouldSlide === true) {
-      drawerElement.current?.classList.add("slide-in");
+      if (drawerElement != null && drawerElement.current !== null)
+        drawerElement.current.classList.add("slide-in");
     }
   }, [shouldSlide]);
 
@@ -75,7 +76,8 @@ const ManageFriendsDrawer: React.FC<MFDProps> = ({
 
   const changeToConvosDrawerSliding = (): void => {
     changeToConvosDrawer();
-    drawerElement.current?.classList.add("slide-out");
+    if (drawerElement !== null && drawerElement.current !== null)
+      drawerElement.current.classList.add("slide-out");
   };
 
   return (
@@ -119,7 +121,7 @@ const ManageFriendsDrawer: React.FC<MFDProps> = ({
             <UserBox
               key={friend.id}
               userData={friend.data()}
-              onClick={function (): void {
+              onClick={function(): void {
                 throw new Error("Function not implemented.");
               }}
               typeOfButton={"three-dots"}

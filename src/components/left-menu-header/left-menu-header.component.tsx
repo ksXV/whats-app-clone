@@ -5,21 +5,26 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { BiMessageAdd } from "react-icons/bi";
 
 import { User } from "firebase/auth";
+import Modal from "../modal/modal.component";
 
 interface LeftMenuHeaderProps {
   user: User;
   changeModalState: () => void;
+  isModalHidden: boolean;
   toProfileDrawer: () => void;
   toAddConvoDrawer: () => void;
   toFriendsList: () => void;
+  logUserOut: () => void;
 }
 
 const LeftMenuHeader: React.FC<LeftMenuHeaderProps> = ({
   user,
+  isModalHidden,
   changeModalState,
   toProfileDrawer,
   toAddConvoDrawer,
   toFriendsList,
+  logUserOut,
 }) => {
   const clickHandler = (e: React.SyntheticEvent) => {
     e.stopPropagation();
@@ -34,7 +39,7 @@ const LeftMenuHeader: React.FC<LeftMenuHeaderProps> = ({
         <img
           src={`${user.photoURL}`}
           className="rounded-full cursor-pointer unselectable-text"
-          alt="profile-picture"
+          alt="avatar"
         />
       </div>
       <div className="flex flex-row w-32 items-center justify-between">
@@ -49,11 +54,21 @@ const LeftMenuHeader: React.FC<LeftMenuHeaderProps> = ({
           onClick={toAddConvoDrawer}
           className="cursor-pointer mx-1 unselectable-text"
         />
-        <BsThreeDotsVertical
-          size={"26"}
-          className="cursor-pointer mx-1 unselectable-text"
-          onClick={clickHandler}
-        />
+        <span className="relative">
+          <BsThreeDotsVertical
+            size={"26"}
+            className="cursor-pointer mx-1 unselectable-text"
+            onClick={clickHandler}
+          />
+          {!isModalHidden ? (
+            <Modal
+              isModalHidden={isModalHidden}
+              toProfileDrawer={toProfileDrawer}
+              toFriendsList={toFriendsList}
+              logUserOut={logUserOut}
+            />
+          ) : null}
+        </span>
       </div>
     </div>
   );

@@ -19,7 +19,11 @@ const UserBox: React.FC<UserBoxProps> = ({
   return (
     <div className="border-2 border-gray-700 px-5 py-2 justify-between rounded-md flex flex-row my-1">
       <div className="border-2 flex justify-center items-center rounded-full w-12 h-12 overflow-hidden">
-        <img className="w-12 h-12" src={`${userData?.photoURL}`} />
+        <img
+          className="w-12 h-12"
+          alt="profile"
+          src={`${userData?.photoURL}`}
+        />
       </div>
       <div className="flex flex-col w-[66%]">
         <h2 className="text-left text-lg font-bold">

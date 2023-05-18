@@ -16,20 +16,20 @@
 @keyframes appear-from-tr-corner {
   from {
     transform: scale(0);
-    transform-origin: top right;
+    transform-origin: top left;
   }
   to {
     transform: scale(1);
-    transform-origin: top right;
+    transform-origin: top left;
   }
 }
 @keyframes disappear-from-tr-corner {
   from {
     transform: scale(1);
-    transform-origin: top right;
+    transform-origin: top left;
   }
   to {
     transform: scale(0);
-    transform-origin: top right;
+    transform-origin: top left;
   }
 }

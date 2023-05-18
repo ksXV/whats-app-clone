@@ -115,19 +115,11 @@ class LeftMenu extends Component<LeftMenuProps, LeftMenuState> {
             toAddConvoDrawer={this.changeToAddConvoDrawer}
             toProfileDrawer={this.changeToProfileDrawer}
             toFriendsList={this.changeToFriendsList}
+            isModalHidden={isModalHidden}
             user={user}
+            logUserOut={logUserOut}
             changeModalState={this.changeModalState}
           />
-          <span>
-            {!isModalHidden ? (
-              <Modal
-                isModalHidden={isModalHidden}
-                toProfileDrawer={this.changeToProfileDrawer}
-                toFriendsList={this.changeToFriendsList}
-                logUserOut={logUserOut}
-              />
-            ) : null}
-          </span>
           <div className="w-[100%] p-2 pl-3 bg-[#0E161A] border-y-[0.2px] border-gray-700">
             <CustomSearchBox
               addFriendBox={false}

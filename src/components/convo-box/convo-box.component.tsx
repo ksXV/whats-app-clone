@@ -23,12 +23,19 @@ interface ConversationBoxProps {
   friendUID: string;
   currentUserUID: string;
 }
+
+type ConversationData = {
+  message: string;
+  isRecevied: boolean;
+  dateSent: Date;
+};
+
 const ConversationBox: React.FC<ConversationBoxProps> = ({
   friendUID,
   currentUserUID,
 }) => {
-  const [userFriendData, setUserFriendData] = useState<DocumentData>();
-  const [messageObject, setmessageObject] = useState<DocumentData>();
+  const [userFriendData, setUserFriendData] = useState<DocumentData>({});
+  const [messageObject, setMessageObject] = useState<ConversationData>();
   const dispatch = useAppDispatch();
 
   const handleUserFriendData = useCallback(() => {
@@ -53,7 +60,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     );
     const q = query(messagesCol, orderBy("dateSent", "desc"), limit(1));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      setmessageObject(snapshot.docs[0].data());
+      setMessageObject(snapshot.docs[0].data() as ConversationData);
     });
     handleUserFriendData();
     return () => {
@@ -62,28 +69,30 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
   }, [currentUserUID, friendUID, handleUserFriendData]);
   const cssOptions = "padding :0.5rem;";
   const handleSwtichToOtherConversation = () => {
-    dispatch(switchToCurrentConversationAsync(userFriendData!));
+    dispatch(switchToCurrentConversationAsync(userFriendData));
   };
 
-  return userFriendData !== undefined && messageObject !== undefined ? (
+  return typeof userFriendData === "object" &&
+    "data" in userFriendData &&
+    messageObject !== undefined ? (
     <div
       onClick={handleSwtichToOtherConversation}
       className="border-y-[1px] border-r-[1px] w-[100%] hover:bg-slate-800 cursor-pointer border-gray-700 px-5 py-2 justify-start flex flex-row"
     >
       <div className="border-2 flex justify-center items-center rounded-full w-12 h-12 overflow-hidden">
-        <img className="w-12 h-12" src={`${userFriendData.data().photoURL}`} />
+        <img
+          alt="profile"
+          className="w-12 h-12"
+          src={`${userFriendData.data().photoURL}`}
+        />
       </div>
       <div className="flex self-start flex-col pl-3">
-        <h2 className="text-left text-xl">
-          {userFriendData.data().displayName.length >= 16
-            ? userFriendData.data().displayName.substring(0, 10) + "..."
-            : userFriendData.data().displayName}
+        <h2 className="text-left text-ellipsis overflow-hidden whitespace-nowrap w-30 text-xl">
+          {userFriendData.data().displayName}
         </h2>
-        <h2 className="text-left">
-          {messageObject.message.length >= 20
-            ? messageObject.message.substring(0, 20) + "..."
-            : messageObject.message}
-        </h2>
+        <p className="text-left text-ellipsis overflow-hidden whitespace-nowrap w-30 text-sm text-gray-400">
+          {messageObject.message}
+        </p>
       </div>
     </div>
   ) : messageObject === undefined || userFriendData === undefined ? null : (
