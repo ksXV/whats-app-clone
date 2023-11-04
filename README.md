@@ -6,4 +6,3 @@ If you want to test this application you can log in with :
 
     Password : 12345678
 
-Please don't do any harm to the website/backend.
